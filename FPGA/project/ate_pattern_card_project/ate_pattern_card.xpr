@@ -7,7 +7,7 @@
 <Project Product="Vivado" Version="7" Minor="71" Path="D:/ATE_20260401/FPGA/project/ate_pattern_card_project/ate_pattern_card.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
-    <Option Name="Id" Val="7d81d288bfff466383fda90594b93c43"/>
+    <Option Name="Id" Val="4c4400c382c5471392f3d7586094d9bd"/>
     <Option Name="Part" Val="xcku035-ffva1156-2-i"/>
     <Option Name="CompiledLibDir" Val="$PCACHEDIR/compile_simlib"/>
     <Option Name="CompiledLibDirXSim" Val=""/>

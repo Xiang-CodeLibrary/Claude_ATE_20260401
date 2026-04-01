@@ -345,8 +345,39 @@ set_property PACKAGE_PIN A22    [get_ports {ovd_ch0[14]}]
 set_property PACKAGE_PIN A23    [get_ports {ovd_ch1[14]}]
 set_property PACKAGE_PIN L9     [get_ports {ovd_ch0[15]}]
 set_property PACKAGE_PIN A8     [get_ports {ovd_ch1[15]}]
-set_property IOSTANDARD LVCMOS18 [get_ports {ovd_ch0[*]}]
-set_property IOSTANDARD LVCMOS18 [get_ports {ovd_ch1[*]}]
+
+set_property IOSTANDARD LVCMOS18 [get_ports {ovd_ch0[0]}]
+set_property IOSTANDARD LVCMOS18 [get_ports {ovd_ch1[0]}]
+set_property IOSTANDARD LVCMOS18 [get_ports {ovd_ch0[1]}]
+set_property IOSTANDARD LVCMOS18 [get_ports {ovd_ch1[1]}]
+set_property IOSTANDARD LVCMOS18 [get_ports {ovd_ch0[2]}]
+set_property IOSTANDARD LVCMOS18 [get_ports {ovd_ch1[2]}]
+set_property IOSTANDARD LVCMOS18 [get_ports {ovd_ch0[3]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {ovd_ch1[3]}]
+set_property IOSTANDARD LVCMOS18 [get_ports {ovd_ch0[4]}]
+set_property IOSTANDARD LVCMOS18 [get_ports {ovd_ch1[4]}]
+set_property IOSTANDARD LVCMOS18 [get_ports {ovd_ch0[5]}]
+set_property IOSTANDARD LVCMOS18 [get_ports {ovd_ch1[5]}]
+set_property IOSTANDARD LVCMOS18 [get_ports {ovd_ch0[6]}]
+set_property IOSTANDARD LVCMOS18 [get_ports {ovd_ch1[6]}]
+set_property IOSTANDARD LVCMOS18 [get_ports {ovd_ch0[7]}]
+set_property IOSTANDARD LVCMOS18 [get_ports {ovd_ch1[7]}]
+set_property IOSTANDARD LVCMOS18 [get_ports {ovd_ch0[8]}]
+set_property IOSTANDARD LVCMOS18 [get_ports {ovd_ch1[8]}]
+set_property IOSTANDARD LVCMOS18 [get_ports {ovd_ch0[9]}]
+set_property IOSTANDARD LVCMOS18 [get_ports {ovd_ch1[9]}]
+set_property IOSTANDARD LVCMOS18 [get_ports {ovd_ch0[10]}]
+set_property IOSTANDARD LVCMOS18 [get_ports {ovd_ch1[10]}]
+set_property IOSTANDARD LVCMOS18 [get_ports {ovd_ch0[11]}]
+set_property IOSTANDARD LVCMOS18 [get_ports {ovd_ch1[11]}]
+set_property IOSTANDARD LVCMOS18 [get_ports {ovd_ch0[12]}]
+set_property IOSTANDARD LVCMOS18 [get_ports {ovd_ch1[12]}]
+set_property IOSTANDARD LVCMOS18 [get_ports {ovd_ch0[13]}]
+set_property IOSTANDARD LVCMOS18 [get_ports {ovd_ch1[13]}]
+set_property IOSTANDARD LVCMOS18 [get_ports {ovd_ch0[14]}]
+set_property IOSTANDARD LVCMOS18 [get_ports {ovd_ch1[14]}]
+set_property IOSTANDARD LVCMOS18 [get_ports {ovd_ch0[15]}]
+set_property IOSTANDARD LVCMOS18 [get_ports {ovd_ch1[15]}]
 
 ## ===================== PXI Trigger =====================
 set_property PACKAGE_PIN B9     [get_ports {pxi_trig[0]}]
@@ -371,6 +402,8 @@ set_property IOSTANDARD LVDS [get_ports dstarc_p]
 set_false_path -to [get_pins {rst_pipe_reg[0]/D}]
 set_output_delay -clock [get_clocks sys_clk_200] -max 0.5 [get_ports {data0_p[*]}]
 set_output_delay -clock [get_clocks sys_clk_200] -min -0.5 [get_ports {data0_p[*]}]
+
+
 
 ## ===================== DRC (allow unmapped pins) =====================
 set_property SEVERITY {Warning} [get_drc_checks NSTD-1]
@@ -434,3 +467,47 @@ set_property IOSTANDARD LVDS_25 [get_ports {rcv1_p[3]}]
 set_property IOSTANDARD LVDS_25 [get_ports {rcv1_n[3]}]
 set_property IOSTANDARD LVDS_25 [get_ports {rcv1_p[7]}]
 set_property IOSTANDARD LVDS_25 [get_ports {rcv1_n[7]}]
+
+## ===================== ADATE305 SPI Bus 1 (S1~S8, Bank 65 HR) =====================
+## Shared bus: SCLK/MOSI/MISO to chips 0~3 (Sites 1~8)
+set_property PACKAGE_PIN R21    [get_ports adate_spi_sclk]
+set_property PACKAGE_PIN N21    [get_ports adate_spi_mosi]
+set_property PACKAGE_PIN R22    [get_ports adate_spi_miso]
+set_property IOSTANDARD LVCMOS33 [get_ports adate_spi_sclk]
+set_property IOSTANDARD LVCMOS33 [get_ports adate_spi_mosi]
+set_property IOSTANDARD LVCMOS33 [get_ports adate_spi_miso]
+
+## SPI Chip Selects (active low, per ADATE305 chip)
+## Note: 2 sites share one CS (S1+S2=chip0, S3+S4=chip1, etc.)
+## DLC board has per-site CS; FPGA drives one of the pair
+set_property PACKAGE_PIN J26    [get_ports {adate_spi_cs_n[0]}]
+set_property PACKAGE_PIN L27    [get_ports {adate_spi_cs_n[1]}]
+set_property PACKAGE_PIN L24    [get_ports {adate_spi_cs_n[2]}]
+set_property PACKAGE_PIN K25    [get_ports {adate_spi_cs_n[3]}]
+set_property PACKAGE_PIN R25    [get_ports {adate_spi_cs_n[4]}]
+set_property PACKAGE_PIN M26    [get_ports {adate_spi_cs_n[5]}]
+set_property PACKAGE_PIN T25    [get_ports {adate_spi_cs_n[6]}]
+set_property PACKAGE_PIN L22    [get_ports {adate_spi_cs_n[7]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {adate_spi_cs_n[*]}]
+
+## ADATE305 Global Reset
+set_property PACKAGE_PIN N22    [get_ports adate_spi_rst_n]
+set_property IOSTANDARD LVCMOS33 [get_ports adate_spi_rst_n]
+
+## ===================== ADC SPI (ADS7959 x2, Bank 65 HR) =====================
+## Shared SCLK/MOSI/MISO, individual CS per ADC chip
+
+## ===================== ADC SPI (ADS7959 x2, Bank 65 HR) =====================
+## DLC board: shared SCLK/SDI/SDO bus, separate CS per ADC
+## FPGA top has per-ADC ports; need to merge in RTL or use single port
+## For now: assign ADC[0] to shared bus, ADC[1] directly
+set_property PACKAGE_PIN K21    [get_ports adc_spi_sclk]
+set_property PACKAGE_PIN K22    [get_ports adc_spi_mosi]
+set_property PACKAGE_PIN M21    [get_ports adc_spi_miso]
+set_property PACKAGE_PIN P23    [get_ports {adc_spi_cs_n[0]}]
+set_property PACKAGE_PIN R23    [get_ports {adc_spi_cs_n[1]}]
+set_property IOSTANDARD LVCMOS33 [get_ports adc_spi_sclk]
+set_property IOSTANDARD LVCMOS33 [get_ports adc_spi_mosi]
+set_property IOSTANDARD LVCMOS33 [get_ports adc_spi_miso]
+set_property IOSTANDARD LVCMOS33 [get_ports {adc_spi_cs_n[*]}]
+## ADC bus: shared SCLK/MOSI/MISO, separate CS. Merged to single port in RTL.

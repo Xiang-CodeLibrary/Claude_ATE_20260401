@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2025.2 (win64) Build 6299465 Fri Nov 14 19:35:11 GMT 2025
-| Date         : Wed Apr  1 14:48:38 2026
+| Date         : Wed Apr  1 15:16:27 2026
 | Host         : XIANG-OFFICE running 64-bit major release  (build 9200)
 | Command      : report_utilization -file D:/ATE_20260401/FPGA/project/ate_pattern_card_project/synth_util.rpt
 | Design       : ate_top
@@ -32,8 +32,8 @@ Table of Contents
 +-------------------------+------+-------+------------+-----------+-------+
 |        Site Type        | Used | Fixed | Prohibited | Available | Util% |
 +-------------------------+------+-------+------------+-----------+-------+
-| CLB LUTs*               |  116 |     0 |          0 |    203128 |  0.06 |
-|   LUT as Logic          |  116 |     0 |          0 |    203128 |  0.06 |
+| CLB LUTs*               |  121 |     0 |          0 |    203128 |  0.06 |
+|   LUT as Logic          |  121 |     0 |          0 |    203128 |  0.06 |
 |   LUT as Memory         |    0 |     0 |          0 |    112800 |  0.00 |
 | CLB Registers           |  117 |     0 |          0 |    406256 |  0.03 |
 |   Register as Flip Flop |  117 |     0 |          0 |    406256 |  0.03 |
@@ -98,14 +98,14 @@ Warning! For any ECO changes, please run place_design if there are unplaced inst
 +------------------+------+-------+------------+-----------+-------+
 |     Site Type    | Used | Fixed | Prohibited | Available | Util% |
 +------------------+------+-------+------------+-----------+-------+
-| Bonded IOB       |  163 |   136 |          0 |       520 | 31.35 |
+| Bonded IOB       |  161 |   151 |          0 |       520 | 30.96 |
 |   HPIOB          |  112 |   112 |          0 |       416 | 26.92 |
 |     INPUT        |   58 |       |            |           |       |
 |     OUTPUT       |   54 |       |            |           |       |
 |     BIDIR        |    0 |       |            |           |       |
-|   HRIO           |   24 |    24 |          0 |       104 | 23.08 |
+|   HRIO           |   39 |    39 |          0 |       104 | 37.50 |
 |     INPUT        |   12 |       |            |           |       |
-|     OUTPUT       |   12 |       |            |           |       |
+|     OUTPUT       |   27 |       |            |           |       |
 |     BIDIR        |    0 |       |            |           |       |
 | HPIOBDIFFINBUF   |   29 |    29 |          0 |       192 | 15.10 |
 |   DIFFINBUF      |   29 |    29 |            |           |       |
@@ -181,19 +181,19 @@ Warning! For any ECO changes, please run place_design if there are unplaced inst
 |  Ref Name  | Used | Functional Category |
 +------------+------+---------------------+
 | FDCE       |  110 |            Register |
-| LUT6       |   43 |                 CLB |
-| LUT4       |   39 |                 CLB |
+| LUT6       |   42 |                 CLB |
+| LUT4       |   37 |                 CLB |
 | IBUFCTRL   |   35 |              Others |
 | DIFFINBUF  |   35 |                 I/O |
+| LUT2       |   34 |                 CLB |
 | OBUFDS     |   33 |                 I/O |
-| LUT2       |   33 |                 CLB |
 | OSERDESE3  |   32 |                 I/O |
 | ODELAYE3   |   32 |                 I/O |
 | ISERDESE3  |   32 |                 I/O |
 | IDELAYE3   |   32 |                 I/O |
-| OBUF       |   19 |                 I/O |
-| LUT5       |   19 |                 CLB |
-| LUT3       |   16 |                 CLB |
+| LUT5       |   21 |                 CLB |
+| LUT3       |   19 |                 CLB |
+| OBUF       |   17 |                 I/O |
 | OBUFT      |    8 |                 I/O |
 | FDPE       |    7 |            Register |
 | CARRY8     |    7 |                 CLB |

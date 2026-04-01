@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2025.2 (win64) Build 6299465 Fri Nov 14 19:35:11 GMT 2025
-| Date         : Wed Apr  1 14:50:26 2026
+| Date         : Wed Apr  1 15:18:15 2026
 | Host         : XIANG-OFFICE running 64-bit major release  (build 9200)
 | Command      : report_drc -file D:/ATE_20260401/FPGA/project/ate_pattern_card_project/impl_drc.rpt
 | Design       : ate_top
@@ -51,9 +51,7 @@ Related violations: <none>
 
 NSTD-1#1 Warning
 Unspecified I/O Standard  
-27 out of 95 logical ports use I/O standard (IOSTANDARD) value 'DEFAULT', instead of a user assigned specific value. This may cause I/O contention or incompatibility with the board power or connectivity affecting performance, signal integrity or in extreme cases cause damage to the device or the components to which it is connected. To correct this violation, specify all I/O standards. This design will fail to generate a bitstream unless all logical ports have a user specified I/O standard value defined. To allow bitstream creation with unspecified I/O standard values (not recommended), use this command: set_property SEVERITY {Warning} [get_drc_checks NSTD-1].  NOTE: When using the Vivado Runs infrastructure (e.g. launch_runs Tcl command), add this command to a .tcl file and add that file as a pre-hook for write_bitstream step for the implementation run. Problem ports: adate_spi_cs_n[7:0], adate_spi_mosi, adate_spi_rst_n, adate_spi_sclk,
-adc_spi_cs_n[1:0], adc_spi_mosi[1:0], adc_spi_sclk[1:0], led_access,
-led_active, pcie_tx_n[3:0], pcie_tx_p[3:0].
+10 out of 93 logical ports use I/O standard (IOSTANDARD) value 'DEFAULT', instead of a user assigned specific value. This may cause I/O contention or incompatibility with the board power or connectivity affecting performance, signal integrity or in extreme cases cause damage to the device or the components to which it is connected. To correct this violation, specify all I/O standards. This design will fail to generate a bitstream unless all logical ports have a user specified I/O standard value defined. To allow bitstream creation with unspecified I/O standard values (not recommended), use this command: set_property SEVERITY {Warning} [get_drc_checks NSTD-1].  NOTE: When using the Vivado Runs infrastructure (e.g. launch_runs Tcl command), add this command to a .tcl file and add that file as a pre-hook for write_bitstream step for the implementation run. Problem ports: led_access, led_active, pcie_tx_n[3:0], pcie_tx_p[3:0].
 Related violations: <none>
 
 REQP-1803#1 Warning
@@ -218,9 +216,7 @@ Related violations: <none>
 
 UCIO-1#1 Warning
 Unconstrained Logical Port  
-27 out of 95 logical ports have no user assigned specific location constraint (LOC). This may cause I/O contention or incompatibility with the board power or connectivity affecting performance, signal integrity or in extreme cases cause damage to the device or the components to which it is connected. To correct this violation, specify all pin locations. This design will fail to generate a bitstream unless all logical ports have a user specified site LOC constraint defined.  To allow bitstream creation with unspecified pin locations (not recommended), use this command: set_property SEVERITY {Warning} [get_drc_checks UCIO-1].  NOTE: When using the Vivado Runs infrastructure (e.g. launch_runs Tcl command), add this command to a .tcl file and add that file as a pre-hook for write_bitstream step for the implementation run.  Problem ports: adate_spi_cs_n[7:0], adate_spi_mosi, adate_spi_rst_n, adate_spi_sclk,
-adc_spi_cs_n[1:0], adc_spi_mosi[1:0], adc_spi_sclk[1:0], led_access,
-led_active, pcie_tx_n[3:0], pcie_tx_p[3:0].
+10 out of 93 logical ports have no user assigned specific location constraint (LOC). This may cause I/O contention or incompatibility with the board power or connectivity affecting performance, signal integrity or in extreme cases cause damage to the device or the components to which it is connected. To correct this violation, specify all pin locations. This design will fail to generate a bitstream unless all logical ports have a user specified site LOC constraint defined.  To allow bitstream creation with unspecified pin locations (not recommended), use this command: set_property SEVERITY {Warning} [get_drc_checks UCIO-1].  NOTE: When using the Vivado Runs infrastructure (e.g. launch_runs Tcl command), add this command to a .tcl file and add that file as a pre-hook for write_bitstream step for the implementation run.  Problem ports: led_access, led_active, pcie_tx_n[3:0], pcie_tx_p[3:0].
 Related violations: <none>
 
 

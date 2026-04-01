@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 --------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version      : Vivado v.2025.2 (win64) Build 6299465 Fri Nov 14 19:35:11 GMT 2025
-| Date              : Wed Apr  1 14:48:38 2026
+| Date              : Wed Apr  1 15:16:27 2026
 | Host              : XIANG-OFFICE running 64-bit major release  (build 9200)
 | Command           : report_timing_summary -file D:/ATE_20260401/FPGA/project/ate_pattern_card_project/synth_timing.rpt
 | Design            : ate_top
@@ -55,7 +55,7 @@ Table of Contents
 3. checking pulse_width_clock (0)
 4. checking unconstrained_internal_endpoints (0)
 5. checking no_input_delay (32)
-6. checking no_output_delay (33)
+6. checking no_output_delay (31)
 7. checking multiple_clock (0)
 8. checking generated_clocks (0)
 9. checking loops (0)
@@ -92,9 +92,9 @@ Table of Contents
  There are 0 input ports with no input delay but user has a false path constraint.
 
 
-6. checking no_output_delay (33)
+6. checking no_output_delay (31)
 --------------------------------
- There are 33 ports with no output delay specified. (HIGH)
+ There are 31 ports with no output delay specified. (HIGH)
 
  There are 0 ports with no output delay but user has a false path constraint
 
@@ -139,7 +139,7 @@ Table of Contents
 
     WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints     WPWS(ns)     TPWS(ns)  TPWS Failing Endpoints  TPWS Total Endpoints  
     -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------     --------     --------  ----------------------  --------------------  
-     -6.637     -100.677                     17                  324       -0.263       -2.687                     82                  324       -0.129       -2.549                      33                   349  
+     -6.637     -100.677                     17                  324       -0.263       -2.864                     81                  324       -0.129       -2.549                      33                   349  
 
 
 Timing constraints are not met.
@@ -168,7 +168,7 @@ sys_clk_200                        {0.000 2.500}        5.000           200.000
 Clock                WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints     WPWS(ns)     TPWS(ns)  TPWS Failing Endpoints  TPWS Total Endpoints  
 -----                -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------     --------     --------  ----------------------  --------------------  
 sys_clk_200                                                                                                                                                        0.750        0.000                       0                     1  
-  clk_100_unbuf        8.215        0.000                      0                  195       -0.051       -2.284                     78                  195        1.297        0.000                       0                   243  
+  clk_100_unbuf        8.303        0.000                      0                  195       -0.051       -2.460                     77                  195        1.297        0.000                       0                   243  
   clk_400_unbuf                                                                                                                                                   -0.100       -2.420                      32                    98  
   clk_800_unbuf        0.785        0.000                      0                    3       -0.047       -0.141                      3                    3       -0.129       -0.129                       1                     7  
 
@@ -228,24 +228,24 @@ High Pulse Width  Slow    MMCME3_ADV/CLKIN1  n/a            1.750         2.500 
 From Clock:  clk_100_unbuf
   To Clock:  clk_100_unbuf
 
-Setup :            0  Failing Endpoints,  Worst Slack        8.215ns,  Total Violation        0.000ns
-Hold  :           78  Failing Endpoints,  Worst Slack       -0.051ns,  Total Violation       -2.284ns
+Setup :            0  Failing Endpoints,  Worst Slack        8.303ns,  Total Violation        0.000ns
+Hold  :           77  Failing Endpoints,  Worst Slack       -0.051ns,  Total Violation       -2.460ns
 PW    :            0  Failing Endpoints,  Worst Slack        1.297ns,  Total Violation        0.000ns
 ---------------------------------------------------------------------------------------------------
 
 
 Max Delay Paths
 --------------------------------------------------------------------------------------
-Slack (MET) :             8.215ns  (required time - arrival time)
-  Source:                 u_spi/clk_div_cnt_reg[4]/C
+Slack (MET) :             8.303ns  (required time - arrival time)
+  Source:                 u_spi/FSM_sequential_state_reg[0]/C
                             (rising edge-triggered cell FDCE clocked by clk_100_unbuf  {rise@0.000ns fall@5.000ns period=10.000ns})
-  Destination:            u_spi/clk_div_cnt_reg[15]/D
+  Destination:            u_spi/FSM_sequential_state_reg[0]/CE
                             (rising edge-triggered cell FDCE clocked by clk_100_unbuf  {rise@0.000ns fall@5.000ns period=10.000ns})
   Path Group:             clk_100_unbuf
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            10.000ns  (clk_100_unbuf rise@10.000ns - clk_100_unbuf rise@0.000ns)
-  Data Path Delay:        1.632ns  (logic 0.480ns (29.412%)  route 1.152ns (70.588%))
-  Logic Levels:           4  (LUT4=1 LUT5=1 LUT6=2)
+  Data Path Delay:        1.438ns  (logic 0.358ns (24.896%)  route 1.080ns (75.104%))
+  Logic Levels:           3  (LUT4=1 LUT5=1 LUT6=1)
   Clock Path Skew:        -0.145ns (DCD - SCD + CPR)
     Destination Clock Delay (DCD):    4.323ns = ( 14.323 - 10.000 ) 
     Source Clock Delay      (SCD):    4.266ns
@@ -272,19 +272,17 @@ Slack (MET) :             8.215ns  (required time - arrival time)
                          net (fo=1, unplaced)         0.325     1.464    u_timing_clocks/clk_100_unbuf
                          BUFGCE (Prop_BUFGCE_I_O)     0.083     1.547 r  u_timing_clocks/u_buf_100/O
                          net (fo=241, unplaced)       2.720     4.266    u_spi/CLK
-                         FDCE                                         r  u_spi/clk_div_cnt_reg[4]/C
+                         FDCE                                         r  u_spi/FSM_sequential_state_reg[0]/C
   -------------------------------------------------------------------    -------------------
-                         FDCE (Prop_FDCE_C_Q)         0.115     4.381 f  u_spi/clk_div_cnt_reg[4]/Q
-                         net (fo=5, unplaced)         0.342     4.723    u_spi/clk_div_cnt[4]
-                         LUT6 (Prop_LUT6_I0_O)        0.190     4.913 r  u_spi/clk_div_cnt[9]_i_2/O
-                         net (fo=6, unplaced)         0.271     5.184    u_spi/clk_div_cnt[9]_i_2_n_0
-                         LUT6 (Prop_LUT6_I2_O)        0.040     5.224 r  u_spi/clk_div_cnt[14]_i_2/O
-                         net (fo=5, unplaced)         0.267     5.491    u_spi/clk_div_cnt[14]_i_2_n_0
-                         LUT4 (Prop_LUT4_I1_O)        0.040     5.531 r  u_spi/clk_div_cnt[15]_i_2/O
-                         net (fo=1, unplaced)         0.249     5.780    u_spi/clk_div_cnt[15]_i_2_n_0
-                         LUT5 (Prop_LUT5_I0_O)        0.095     5.875 r  u_spi/clk_div_cnt[15]_i_1/O
-                         net (fo=1, unplaced)         0.023     5.898    u_spi/clk_div_cnt[15]_i_1_n_0
-                         FDCE                                         r  u_spi/clk_div_cnt_reg[15]/D
+                         FDCE (Prop_FDCE_C_Q)         0.115     4.381 f  u_spi/FSM_sequential_state_reg[0]/Q
+                         net (fo=25, unplaced)        0.313     4.694    u_spi/state[0]
+                         LUT4 (Prop_LUT4_I0_O)        0.132     4.826 r  u_spi/FSM_sequential_state[2]_i_5/O
+                         net (fo=1, unplaced)         0.249     5.075    u_spi/FSM_sequential_state[2]_i_5_n_0
+                         LUT5 (Prop_LUT5_I4_O)        0.040     5.115 r  u_spi/FSM_sequential_state[2]_i_3/O
+                         net (fo=1, unplaced)         0.216     5.331    u_spi/FSM_sequential_state[2]_i_3_n_0
+                         LUT6 (Prop_LUT6_I0_O)        0.071     5.402 r  u_spi/FSM_sequential_state[2]_i_1__0/O
+                         net (fo=3, unplaced)         0.302     5.704    u_spi/FSM_sequential_state[2]_i_1__0_n_0
+                         FDCE                                         r  u_spi/FSM_sequential_state_reg[0]/CE
   -------------------------------------------------------------------    -------------------
 
                          (clock clk_100_unbuf rise edge)
@@ -302,15 +300,15 @@ Slack (MET) :             8.215ns  (required time - arrival time)
                          net (fo=1, unplaced)         0.282    11.673    u_timing_clocks/clk_100_unbuf
                          BUFGCE (Prop_BUFGCE_I_O)     0.075    11.748 r  u_timing_clocks/u_buf_100/O
                          net (fo=241, unplaced)       2.575    14.323    u_spi/CLK
-                         FDCE                                         r  u_spi/clk_div_cnt_reg[15]/C
+                         FDCE                                         r  u_spi/FSM_sequential_state_reg[0]/C
                          clock pessimism             -0.202    14.121    
                          clock uncertainty           -0.067    14.054    
-                         FDCE (Setup_FDCE_C_D)        0.059    14.113    u_spi/clk_div_cnt_reg[15]
+                         FDCE (Setup_FDCE_C_CE)      -0.047    14.007    u_spi/FSM_sequential_state_reg[0]
   -------------------------------------------------------------------
-                         required time                         14.113    
-                         arrival time                          -5.898    
+                         required time                         14.007    
+                         arrival time                          -5.704    
   -------------------------------------------------------------------
-                         slack                                  8.215    
+                         slack                                  8.303    
 
 
 
@@ -319,9 +317,9 @@ Slack (MET) :             8.215ns  (required time - arrival time)
 Min Delay Paths
 --------------------------------------------------------------------------------------
 Slack (VIOLATED) :        -0.051ns  (arrival time - required time)
-  Source:                 u_adc/spi_shift_out_reg[13]/C
+  Source:                 u_lvl_update/cmd_wdata_reg[0]/C
                             (rising edge-triggered cell FDCE clocked by clk_100_unbuf  {rise@0.000ns fall@5.000ns period=10.000ns})
-  Destination:            u_adc/spi_shift_out_reg[14]/D
+  Destination:            u_spi/shift_out_reg[0]/D
                             (rising edge-triggered cell FDCE clocked by clk_100_unbuf  {rise@0.000ns fall@5.000ns period=10.000ns})
   Path Group:             clk_100_unbuf
   Path Type:              Hold (Min at Fast Process Corner)
@@ -349,14 +347,14 @@ Slack (VIOLATED) :        -0.051ns  (arrival time - required time)
                                                       0.270     0.844 r  u_timing_clocks/u_mmcm_timing/CLKOUT2
                          net (fo=1, unplaced)         0.128     0.972    u_timing_clocks/clk_100_unbuf
                          BUFGCE (Prop_BUFGCE_I_O)     0.027     0.999 r  u_timing_clocks/u_buf_100/O
-                         net (fo=241, unplaced)       1.349     2.348    u_adc/CLK
-                         FDCE                                         r  u_adc/spi_shift_out_reg[13]/C
+                         net (fo=241, unplaced)       1.349     2.348    u_lvl_update/CLK
+                         FDCE                                         r  u_lvl_update/cmd_wdata_reg[0]/C
   -------------------------------------------------------------------    -------------------
-                         FDCE (Prop_FDCE_C_Q)         0.049     2.397 r  u_adc/spi_shift_out_reg[13]/Q
-                         net (fo=1, unplaced)         0.074     2.471    u_adc/spi_shift_out_reg_n_0_[13]
-                         LUT3 (Prop_LUT3_I2_O)        0.015     2.486 r  u_adc/spi_shift_out[14]_i_1/O
-                         net (fo=1, unplaced)         0.012     2.498    u_adc/spi_shift_out[14]
-                         FDCE                                         r  u_adc/spi_shift_out_reg[14]/D
+                         FDCE (Prop_FDCE_C_Q)         0.049     2.397 r  u_lvl_update/cmd_wdata_reg[0]/Q
+                         net (fo=1, unplaced)         0.074     2.471    u_lvl_update/lvl_cmd_wdata[0]
+                         LUT3 (Prop_LUT3_I2_O)        0.015     2.486 r  u_lvl_update/shift_out[0]_i_1/O
+                         net (fo=1, unplaced)         0.012     2.498    u_spi/D[0]
+                         FDCE                                         r  u_spi/shift_out_reg[0]/D
   -------------------------------------------------------------------    -------------------
 
                          (clock clk_100_unbuf rise edge)
@@ -373,10 +371,10 @@ Slack (VIOLATED) :        -0.051ns  (arrival time - required time)
                                                      -0.207     0.689 r  u_timing_clocks/u_mmcm_timing/CLKOUT2
                          net (fo=1, unplaced)         0.176     0.865    u_timing_clocks/clk_100_unbuf
                          BUFGCE (Prop_BUFGCE_I_O)     0.031     0.896 r  u_timing_clocks/u_buf_100/O
-                         net (fo=241, unplaced)       1.494     2.389    u_adc/CLK
-                         FDCE                                         r  u_adc/spi_shift_out_reg[14]/C
+                         net (fo=241, unplaced)       1.494     2.389    u_spi/CLK
+                         FDCE                                         r  u_spi/shift_out_reg[0]/C
                          clock pessimism              0.104     2.493    
-                         FDCE (Hold_FDCE_C_D)         0.056     2.549    u_adc/spi_shift_out_reg[14]
+                         FDCE (Hold_FDCE_C_D)         0.056     2.549    u_spi/shift_out_reg[0]
   -------------------------------------------------------------------
                          required time                         -2.549    
                          arrival time                           2.498    

@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2025.2 (win64) Build 6299465 Fri Nov 14 19:35:11 GMT 2025
-| Date         : Wed Apr  1 14:50:19 2026
+| Date         : Wed Apr  1 15:18:09 2026
 | Host         : XIANG-OFFICE running 64-bit major release  (build 9200)
 | Command      : report_utilization -file D:/ATE_20260401/FPGA/project/ate_pattern_card_project/impl_util.rpt
 | Design       : ate_top
@@ -33,11 +33,11 @@ Table of Contents
 +-------------------------+------+-------+------------+-----------+-------+
 |        Site Type        | Used | Fixed | Prohibited | Available | Util% |
 +-------------------------+------+-------+------------+-----------+-------+
-| CLB LUTs                |   81 |     0 |          0 |    203128 |  0.04 |
-|   LUT as Logic          |   81 |     0 |          0 |    203128 |  0.04 |
+| CLB LUTs                |   82 |     0 |          0 |    203128 |  0.04 |
+|   LUT as Logic          |   82 |     0 |          0 |    203128 |  0.04 |
 |   LUT as Memory         |    0 |     0 |          0 |    112800 |  0.00 |
-| CLB Registers           |   95 |     0 |          0 |    406256 |  0.02 |
-|   Register as Flip Flop |   95 |     0 |          0 |    406256 |  0.02 |
+| CLB Registers           |   93 |     0 |          0 |    406256 |  0.02 |
+|   Register as Flip Flop |   93 |     0 |          0 |    406256 |  0.02 |
 |   Register as Latch     |    0 |     0 |          0 |    406256 |  0.00 |
 | CARRY8                  |    1 |     0 |          0 |     30300 | <0.01 |
 | F7 Muxes                |    0 |     0 |          0 |    121200 |  0.00 |
@@ -62,7 +62,7 @@ Table of Contents
 | 0     |            _ |       Reset |            - |
 | 0     |          Yes |           - |            - |
 | 14    |          Yes |           - |          Set |
-| 81    |          Yes |           - |        Reset |
+| 79    |          Yes |           - |        Reset |
 | 0     |          Yes |         Set |            - |
 | 0     |          Yes |       Reset |            - |
 +-------+--------------+-------------+--------------+
@@ -74,13 +74,13 @@ Table of Contents
 +--------------------------------------------+------+-------+------------+-----------+-------+
 |                  Site Type                 | Used | Fixed | Prohibited | Available | Util% |
 +--------------------------------------------+------+-------+------------+-----------+-------+
-| CLB                                        |   23 |     0 |          0 |     30300 |  0.08 |
+| CLB                                        |   20 |     0 |          0 |     30300 |  0.07 |
 |   CLBL                                     |   11 |     0 |            |           |       |
-|   CLBM                                     |   12 |     0 |            |           |       |
-| LUT as Logic                               |   81 |     0 |          0 |    203128 |  0.04 |
-|   using O5 output only                     |    4 |       |            |           |       |
+|   CLBM                                     |    9 |     0 |            |           |       |
+| LUT as Logic                               |   82 |     0 |          0 |    203128 |  0.04 |
+|   using O5 output only                     |    3 |       |            |           |       |
 |   using O6 output only                     |   38 |       |            |           |       |
-|   using O5 and O6                          |   39 |       |            |           |       |
+|   using O5 and O6                          |   41 |       |            |           |       |
 | LUT as Memory                              |    0 |     0 |          0 |    112800 |  0.00 |
 |   LUT as Distributed RAM                   |    0 |     0 |            |           |       |
 |     using O5 output only                   |    0 |       |            |           |       |
@@ -90,11 +90,11 @@ Table of Contents
 |     using O5 output only                   |    0 |       |            |           |       |
 |     using O6 output only                   |    0 |       |            |           |       |
 |     using O5 and O6                        |    0 |       |            |           |       |
-| CLB Registers                              |   95 |     0 |          0 |    406256 |  0.02 |
-|   Register driven from within the CLB      |   66 |       |            |           |       |
-|   Register driven from outside the CLB     |   29 |       |            |           |       |
-|     LUT in front of the register is unused |   27 |       |            |           |       |
-|     LUT in front of the register is used   |    2 |       |            |           |       |
+| CLB Registers                              |   93 |     0 |          0 |    406256 |  0.02 |
+|   Register driven from within the CLB      |   69 |       |            |           |       |
+|   Register driven from outside the CLB     |   24 |       |            |           |       |
+|     LUT in front of the register is unused |   15 |       |            |           |       |
+|     LUT in front of the register is used   |    9 |       |            |           |       |
 +--------------------------------------------+------+-------+------------+-----------+-------+
 
 
@@ -127,14 +127,14 @@ Table of Contents
 +------------------+------+-------+------------+-----------+-------+
 |     Site Type    | Used | Fixed | Prohibited | Available | Util% |
 +------------------+------+-------+------------+-----------+-------+
-| Bonded IOB       |   95 |    68 |          0 |       520 | 18.27 |
-|   HPIOB          |   60 |    56 |          0 |       416 | 14.42 |
+| Bonded IOB       |   93 |    83 |          0 |       520 | 17.88 |
+|   HPIOB          |   66 |    56 |          0 |       416 | 15.87 |
 |     INPUT        |    2 |       |            |           |       |
-|     OUTPUT       |   58 |       |            |           |       |
+|     OUTPUT       |   64 |       |            |           |       |
 |     BIDIR        |    0 |       |            |           |       |
-|   HRIO           |   35 |    12 |          0 |       104 | 33.65 |
+|   HRIO           |   27 |    27 |          0 |       104 | 25.96 |
 |     INPUT        |    0 |       |            |           |       |
-|     OUTPUT       |   35 |       |            |           |       |
+|     OUTPUT       |   27 |       |            |           |       |
 |     BIDIR        |    0 |       |            |           |       |
 | HPIOBDIFFINBUF   |    1 |     1 |          0 |       192 |  0.52 |
 |   DIFFINBUF      |    1 |     1 |            |           |       |
@@ -206,16 +206,16 @@ Table of Contents
 +------------+------+---------------------+
 |  Ref Name  | Used | Functional Category |
 +------------+------+---------------------+
-| FDCE       |   81 |            Register |
+| FDCE       |   79 |            Register |
+| LUT2       |   34 |                 CLB |
 | OBUFDS     |   33 |                 I/O |
-| LUT2       |   33 |                 CLB |
 | OSERDESE3  |   32 |                 I/O |
 | ODELAYE3   |   32 |                 I/O |
-| LUT6       |   27 |                 CLB |
-| LUT4       |   23 |                 CLB |
-| OBUF       |   19 |                 I/O |
-| LUT5       |   19 |                 CLB |
-| LUT3       |   16 |                 CLB |
+| LUT6       |   26 |                 CLB |
+| LUT5       |   21 |                 CLB |
+| LUT4       |   21 |                 CLB |
+| LUT3       |   19 |                 CLB |
+| OBUF       |   17 |                 I/O |
 | FDPE       |   14 |            Register |
 | OBUFT      |    8 |                 I/O |
 | BUFGCE     |    3 |               Clock |

@@ -27,10 +27,10 @@ module ate_top
     output logic [NUM_ADATE305-1:0] adate_spi_cs_n,
     output logic        adate_spi_rst_n,
 
-    // SPI to ADC (ADS7959 x2)
-    output logic [NUM_ADC-1:0] adc_spi_sclk,
-    output logic [NUM_ADC-1:0] adc_spi_mosi,
-    input  logic [NUM_ADC-1:0] adc_spi_miso,
+    // SPI to ADC (ADS7959 x2, shared SCLK/MOSI/MISO bus, separate CS)
+    output logic        adc_spi_sclk,
+    output logic        adc_spi_mosi,
+    input  logic        adc_spi_miso,
     output logic [NUM_ADC-1:0] adc_spi_cs_n,
 
     // LVDS to/from ADATE305 (16 channels × 2 sub-channels)
@@ -303,15 +303,24 @@ module ate_top
     logic [11:0] measout_data [NUM_CHANNELS];
     logic [NUM_CHANNELS-1:0] measout_valid;
 
+    // ADC has shared bus: map single-wire ports to adc_ctrl's array ports
+    logic [NUM_ADC-1:0] adc_sclk_int, adc_mosi_int;
+    logic [NUM_ADC-1:0] adc_miso_int;
+
     adc_ctrl u_adc (
         .clk(clk_100), .rst_n(rst_n),
         .reg_wr_en(adc_reg_wr_en), .reg_offset(adc_reg_offset),
         .reg_wr_data(adc_reg_wr_data), .reg_rd_en(adc_reg_rd_en),
         .reg_rd_data(adc_reg_rd_data),
-        .adc_sclk(adc_spi_sclk), .adc_mosi(adc_spi_mosi),
-        .adc_miso(adc_spi_miso), .adc_cs_n(adc_spi_cs_n),
+        .adc_sclk(adc_sclk_int), .adc_mosi(adc_mosi_int),
+        .adc_miso(adc_miso_int), .adc_cs_n(adc_spi_cs_n),
         .measout_data(measout_data), .measout_valid(measout_valid)
     );
+
+    // Shared bus: both ADCs on same physical SCLK/MOSI/MISO
+    assign adc_spi_sclk = adc_sclk_int[0];
+    assign adc_spi_mosi = adc_mosi_int[0];
+    assign adc_miso_int = {adc_spi_miso, adc_spi_miso}; // Both read same MISO line
 
     // ================================================================
     // Sequencer + Vector Prefetch
