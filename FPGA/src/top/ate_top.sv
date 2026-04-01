@@ -47,6 +47,19 @@ module ate_top
     // OVD from ADATE305
     input  logic [NUM_CHANNELS-1:0] ovd_ch0, ovd_ch1,
 
+`ifdef USE_MIG_IP
+    // DDR3 physical interface (active when MIG IP is used)
+    output logic [14:0] ddr3_addr,
+    output logic [2:0]  ddr3_ba,
+    output logic        ddr3_ras_n, ddr3_cas_n, ddr3_we_n,
+    output logic        ddr3_reset_n,
+    output logic [0:0]  ddr3_ck_p, ddr3_ck_n,
+    output logic [0:0]  ddr3_cke, ddr3_cs_n, ddr3_odt,
+    output logic [7:0]  ddr3_dm,
+    inout  wire  [63:0] ddr3_dq,
+    inout  wire  [7:0]  ddr3_dqs_p, ddr3_dqs_n,
+`endif
+
     // PXI Trigger
     inout  logic [6:0]  pxi_trig,
 
@@ -97,7 +110,7 @@ module ate_top
     assign rst_n = rst_pipe[3];
 
     // ================================================================
-    // PCIe → AXI-Lite (placeholder, replace with Xilinx IP)
+    // AXI-Lite bus signals (driven by PCIe XDMA or JTAG-AXI)
     // ================================================================
     logic [AXI_ADDR_W-1:0] s_axi_awaddr, s_axi_araddr;
     logic [2:0]  s_axi_awprot, s_axi_arprot;
@@ -112,9 +125,15 @@ module ate_top
     logic [1:0]  s_axi_rresp;
     logic        s_axi_rvalid, s_axi_rready;
 
-    // PCIe Wrapper (placeholder until IP generated)
+    // ================================================================
+    // PCIe / JTAG-AXI selection
+    // ================================================================
+    // USE_XDMA_IP: defined when XDMA IP is generated → full PCIe path
+    // Otherwise:   JTAG-AXI IP provides register access for bring-up
+
     logic pcie_user_clk, pcie_user_rst_n, pcie_lnk_up;
 
+`ifdef USE_XDMA_IP
     pcie_wrapper u_pcie (
         .pcie_refclk_p(pcie_refclk_p), .pcie_refclk_n(pcie_refclk_n),
         .pcie_tx_p(pcie_tx_p), .pcie_tx_n(pcie_tx_n),
@@ -136,6 +155,45 @@ module ate_top
         .dma_c2h_valid(1'b0), .dma_c2h_data('0), .dma_c2h_ready(),
         .irq_req(irq_status[3:0]), .irq_ack()
     );
+`else
+    // JTAG-AXI: register access via JTAG (no PCIe needed)
+    // JTAG-AXI IP has 32-bit addr; truncate to 16-bit
+    logic [31:0] jtag_m_axi_awaddr, jtag_m_axi_araddr;
+
+    jtag_axi_0 u_jtag_axi (
+        .aclk          (clk_100),
+        .aresetn       (rst_n),
+        .m_axi_awaddr  (jtag_m_axi_awaddr),
+        .m_axi_awprot  (s_axi_awprot),
+        .m_axi_awvalid (s_axi_awvalid),
+        .m_axi_awready (s_axi_awready),
+        .m_axi_wdata   (s_axi_wdata),
+        .m_axi_wstrb   (s_axi_wstrb),
+        .m_axi_wvalid  (s_axi_wvalid),
+        .m_axi_wready  (s_axi_wready),
+        .m_axi_bresp   (s_axi_bresp),
+        .m_axi_bvalid  (s_axi_bvalid),
+        .m_axi_bready  (s_axi_bready),
+        .m_axi_araddr  (jtag_m_axi_araddr),
+        .m_axi_arprot  (s_axi_arprot),
+        .m_axi_arvalid (s_axi_arvalid),
+        .m_axi_arready (s_axi_arready),
+        .m_axi_rdata   (s_axi_rdata),
+        .m_axi_rresp   (s_axi_rresp),
+        .m_axi_rvalid  (s_axi_rvalid),
+        .m_axi_rready  (s_axi_rready)
+    );
+
+    assign s_axi_awaddr = jtag_m_axi_awaddr[AXI_ADDR_W-1:0];
+    assign s_axi_araddr = jtag_m_axi_araddr[AXI_ADDR_W-1:0];
+
+    // Tie off PCIe outputs in JTAG mode
+    assign pcie_tx_p     = 4'b0;
+    assign pcie_tx_n     = 4'b1;
+    assign pcie_user_clk = 1'b0;
+    assign pcie_user_rst_n = 1'b0;
+    assign pcie_lnk_up   = 1'b0;
+`endif
 
     // ================================================================
     // AXI-Lite Slave → Register Bus
@@ -379,9 +437,22 @@ module ate_top
         .sys_clk_200(sys_clk_200), .sys_rst_n(rst_n),
         .ui_clk(), .ui_rst_n(), .init_calib_complete(),
         // DDR3 physical pins (directly connected in constraints)
-        .ddr3_addr(), .ddr3_ba(), .ddr3_ras_n(), .ddr3_cas_n(), .ddr3_we_n(),
-        .ddr3_reset_n(), .ddr3_ck_p(), .ddr3_ck_n(), .ddr3_cke(), .ddr3_cs_n(),
-        .ddr3_dm(), .ddr3_dq(), .ddr3_dqs_p(), .ddr3_dqs_n(), .ddr3_odt(),
+`ifdef USE_MIG_IP
+        .ddr3_addr(ddr3_addr), .ddr3_ba(ddr3_ba),
+        .ddr3_ras_n(ddr3_ras_n), .ddr3_cas_n(ddr3_cas_n), .ddr3_we_n(ddr3_we_n),
+        .ddr3_reset_n(ddr3_reset_n),
+        .ddr3_ck_p(ddr3_ck_p), .ddr3_ck_n(ddr3_ck_n),
+        .ddr3_cke(ddr3_cke), .ddr3_cs_n(ddr3_cs_n), .ddr3_odt(ddr3_odt),
+        .ddr3_dm(ddr3_dm), .ddr3_dq(ddr3_dq),
+        .ddr3_dqs_p(ddr3_dqs_p), .ddr3_dqs_n(ddr3_dqs_n),
+`else
+        .ddr3_addr(), .ddr3_ba(),
+        .ddr3_ras_n(), .ddr3_cas_n(), .ddr3_we_n(),
+        .ddr3_reset_n(),
+        .ddr3_ck_p(), .ddr3_ck_n(),
+        .ddr3_cke(), .ddr3_cs_n(), .ddr3_odt(),
+        .ddr3_dm(), .ddr3_dq(), .ddr3_dqs_p(), .ddr3_dqs_n(),
+`endif
         // Vector read port
         .pa_rd_req(ddr_rd_req), .pa_rd_addr(ddr_rd_addr),
         .pa_rd_data(ddr_rd_data), .pa_rd_valid(ddr_rd_valid),
