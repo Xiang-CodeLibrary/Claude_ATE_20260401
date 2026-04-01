@@ -36,7 +36,7 @@ module channel_serdes (
 
     // OSERDES3: 8:1 serializer
     OSERDESE3 #(
-        .DATA_WIDTH     (8),          // 8:1 serialization
+        .DATA_WIDTH     (8),
         .INIT           (1'b0),
         .IS_CLKDIV_INVERTED(1'b0),
         .IS_CLK_INVERTED(1'b0),
@@ -44,12 +44,12 @@ module channel_serdes (
         .SIM_DEVICE     ("ULTRASCALE")
     ) u_oserdes (
         .OQ     (oserdes_out),
-        .T_OUT  (),                   // Tristate (unused, always drive)
-        .CLK    (clk_400),            // High-speed clock (DDR)
-        .CLKDIV (clk_100),            // Parallel clock
-        .D      (tx_data),            // 8-bit parallel input
+        .T_OUT  (),
+        .CLK    (clk_400),
+        .CLKDIV (clk_100),
+        .D      (tx_data),
         .RST    (rst),
-        .T      (1'b0)               // Always drive (not tristate)
+        .T      (1'b0)
     );
 
     // ODELAYE3: fine delay for edge placement
@@ -57,11 +57,11 @@ module channel_serdes (
     ODELAYE3 #(
         .CASCADE          ("NONE"),
         .DELAY_FORMAT     ("COUNT"),
-        .DELAY_TYPE       ("VAR_LOAD"),  // Loadable delay
+        .DELAY_TYPE       ("VAR_LOAD"),
         .DELAY_VALUE      (0),
         .IS_CLK_INVERTED  (1'b0),
         .IS_RST_INVERTED  (1'b0),
-        .REFCLK_FREQUENCY (800.0),       // 800 MHz → 39.0625 ps/tap
+        .REFCLK_FREQUENCY (800.0),
         .SIM_DEVICE       ("ULTRASCALE"),
         .UPDATE_MODE      ("ASYNC")
     ) u_odelay (
@@ -70,20 +70,15 @@ module channel_serdes (
         .DATAOUT     (odelayed_out),
         .CASC_IN     (1'b0),
         .CASC_RETURN (1'b0),
-        .CE          (1'b0),            // Not using increment mode
+        .CE          (1'b0),
         .CLK         (clk_100),
-        .CNTVALUEIN  (odelayed_tap_internal),
-        .DATAIN      (1'b0),
-        .EN_VTC      (1'b1),            // Enable VT compensation
+        .CNTVALUEIN  (odelay_tap),
+        .EN_VTC      (1'b1),
         .INC         (1'b0),
         .LOAD        (odelay_load),
-        .ODATAIN     (oserdes_out),     // From OSERDES
+        .ODATAIN     (oserdes_out),
         .RST         (rst)
     );
-
-    // Pad ODELAYE3 CNTVALUEIN to 9 bits
-    logic [8:0] odelayed_tap_internal;
-    assign odelayed_tap_internal = odelay_tap;
 
     // OBUFDS: LVDS output buffer
     OBUFDS u_obufds (

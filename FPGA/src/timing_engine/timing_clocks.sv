@@ -76,10 +76,23 @@ module timing_clocks (
 
     logic idelayctrl_rdy_int;
 
+    // IDELAYCTRL RST must be driven by FF synchronous to REFCLK (UltraScale requirement)
+    logic [3:0] idelay_rst_pipe;
+    logic       idelay_rst_sync;
+
+    always_ff @(posedge clk_800 or negedge mmcm_locked) begin
+        if (!mmcm_locked)
+            idelay_rst_pipe <= 4'hF;  // Assert reset
+        else
+            idelay_rst_pipe <= {idelay_rst_pipe[2:0], 1'b0};  // Deassert synchronously
+    end
+    assign idelay_rst_sync = idelay_rst_pipe[3];
+
+    (* SIM_DEVICE = "ULTRASCALE" *)
     IDELAYCTRL u_idelayctrl (
         .RDY    (idelayctrl_rdy_int),
         .REFCLK (clk_800),
-        .RST    (~mmcm_locked)    // Hold reset until MMCM locked
+        .RST    (idelay_rst_sync)
     );
 
     assign idelayctrl_rdy = idelayctrl_rdy_int & mmcm_locked;
