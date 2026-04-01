@@ -405,6 +405,26 @@ set_output_delay -clock [get_clocks sys_clk_200] -min -0.5 [get_ports {data0_p[*
 
 
 
+
+## ===================== PCIe Gen2 x4 (Bank 224/225 GTH) =====================
+## Reference clock 100 MHz (from PXIe backplane)
+set_property PACKAGE_PIN AB6 [get_ports pcie_refclk_p]
+set_property PACKAGE_PIN AB5 [get_ports pcie_refclk_n]
+create_clock -period 10.000 -name pcie_refclk [get_ports pcie_refclk_p]
+
+## PERST (active low, active-low PCIe reset from PXIe backplane)
+set_property PACKAGE_PIN N23 [get_ports pcie_perst_n]
+set_property IOSTANDARD LVCMOS33 [get_ports pcie_perst_n]
+set_property PULLUP TRUE [get_ports pcie_perst_n]
+set_false_path -from [get_ports pcie_perst_n]
+
+## PCIe TX/RX lanes (MGT pins, auto-assigned by XDMA IP LOC constraint)
+## Lane 0: TX AH6/AH5, RX AH2/AH1
+## Lane 1: TX AG4/AG3, RX AF2/AF1
+## Lane 2: TX AE4/AE3, RX AD2/AD1
+## Lane 3: TX AC4/AC3, RX AB2/AB1
+## These are set via XDMA IP GT LOC properties, not PACKAGE_PIN
+
 ## ===================== DRC (allow unmapped pins) =====================
 set_property SEVERITY {Warning} [get_drc_checks NSTD-1]
 set_property SEVERITY {Warning} [get_drc_checks UCIO-1]
