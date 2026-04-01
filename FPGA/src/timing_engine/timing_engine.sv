@@ -1,3 +1,4 @@
+`timescale 1ns / 1ps
 // Timing Engine — Redesigned for PXIe-6571 Specification Compliance
 //
 // Key specs achieved:

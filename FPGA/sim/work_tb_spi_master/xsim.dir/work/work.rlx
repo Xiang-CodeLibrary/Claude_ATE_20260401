@@ -1,0 +1,7 @@
+0.7
+2020.2
+Nov 14 2025
+19:37:27
+D:/ATE_20260401/FPGA/sim/tb_spi_master.sv,1775028160,systemVerilog,,,,tb_spi_master,,,,,,,,
+D:/ATE_20260401/FPGA/src/spi_master/spi_master.sv,1775028472,systemVerilog,,D:/ATE_20260401/FPGA/sim/tb_spi_master.sv,,spi_master,,,,,,,,
+D:/ATE_20260401/FPGA/src/top/ate_pkg.sv,1775028309,systemVerilog,D:/ATE_20260401/FPGA/sim/tb_spi_master.sv;D:/ATE_20260401/FPGA/src/spi_master/spi_master.sv,D:/ATE_20260401/FPGA/src/spi_master/spi_master.sv,,ate_pkg,,,,,,,,

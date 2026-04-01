@@ -1,3 +1,4 @@
+`timescale 1ns / 1ps
 // Calibration Controller
 // Manages self-calibration sequence and external calibration interface
 // Stores calibration constants in Flash via SPI

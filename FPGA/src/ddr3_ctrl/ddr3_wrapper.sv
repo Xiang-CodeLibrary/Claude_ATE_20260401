@@ -1,3 +1,4 @@
+`timescale 1ns / 1ps
 // DDR3 Memory Controller Wrapper
 // Wraps Xilinx MIG IP and provides simplified read/write interfaces
 // for Vector Memory, Source/Capture memory, and DMA access

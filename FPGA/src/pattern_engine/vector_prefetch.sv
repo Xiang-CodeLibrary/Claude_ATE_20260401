@@ -1,3 +1,4 @@
+`timescale 1ns / 1ps
 // Vector Prefetch Buffer
 // Bridges DDR3 memory controller (long latency) to Sequencer (needs data fast)
 // Uses a FIFO to hide DDR3 read latency

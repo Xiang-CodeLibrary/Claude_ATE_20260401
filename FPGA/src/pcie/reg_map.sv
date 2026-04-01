@@ -1,3 +1,4 @@
+`timescale 1ns / 1ps
 // Register Map Module
 // Decodes register addresses and routes to sub-modules
 

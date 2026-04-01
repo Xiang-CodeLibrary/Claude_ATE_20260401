@@ -1,3 +1,4 @@
+`timescale 1ns / 1ps
 // Channel SERDES Wrapper
 // Instantiates OSERDES3 + ODELAYE3 for drive output
 // and ISERDES3 + IDELAYE3 for compare input

@@ -1,3 +1,4 @@
+`timescale 1ns / 1ps
 // ATE Pattern Card - Global Parameter Package
 // Target: XCKU035-2FFVA1156I
 

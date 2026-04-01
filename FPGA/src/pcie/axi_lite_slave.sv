@@ -1,3 +1,4 @@
+`timescale 1ns / 1ps
 // AXI4-Lite Slave Interface
 // Bridges AXI4-Lite bus to simple register read/write interface
 

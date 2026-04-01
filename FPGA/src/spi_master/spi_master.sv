@@ -1,3 +1,4 @@
+`timescale 1ns / 1ps
 // SPI Master Controller for ADATE305
 // Supports 8 chip selects, 24-bit frames (1-bit R/W + 7-bit addr + 16-bit data)
 
@@ -96,7 +97,8 @@ module spi_master
     logic [15:0] arb_wdata;
     logic        arb_done;
     logic [15:0] arb_rdata;
-    logic        arb_src;  // 0=register, 1=command interface
+    logic        arb_src;       // 0=register, 1=command interface (combinational)
+    logic        arb_src_r;     // Latched source (valid during entire SPI transaction)
 
     always_comb begin
         if (cmd_valid && !spi_busy) begin
@@ -123,8 +125,16 @@ module spi_master
         end
     end
 
+    // Latch arb_src at transaction start so cmd_done stays correct
+    always_ff @(posedge clk or negedge rst_n) begin
+        if (!rst_n)
+            arb_src_r <= 1'b0;
+        else if (arb_valid && !spi_busy)
+            arb_src_r <= arb_src;
+    end
+
     assign cmd_ready = !spi_busy;
-    assign cmd_done  = arb_done && arb_src;
+    assign cmd_done  = arb_done && arb_src_r;
     assign cmd_rdata = arb_rdata;
 
     // -----------------------------------------------------------

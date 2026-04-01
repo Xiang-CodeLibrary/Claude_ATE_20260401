@@ -1,3 +1,4 @@
+`timescale 1ns / 1ps
 // ATE Pattern Card — Top Level Module (Full System Integration)
 // Target: XCKU035-2FFVA1156I on Ku035_Board
 // All M1~M10 modules wired together

@@ -1,3 +1,4 @@
+`timescale 1ns / 1ps
 // Compare Logic
 // Samples the ADATE305 comparator outputs at the strobe edge
 // and evaluates pass/fail against expected states

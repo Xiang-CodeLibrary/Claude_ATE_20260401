@@ -1,3 +1,4 @@
+`timescale 1ns / 1ps
 // PXI Trigger Bus Interface
 // Manages 7 PXI trigger lines + DSTAR differential triggers
 // Supports start trigger, conditional trigger, output trigger, and cross-board sync

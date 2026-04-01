@@ -1,0 +1,1 @@
+-debug "typical" -top "tb_reg_map" -snapshot "tb_reg_map_snap" 

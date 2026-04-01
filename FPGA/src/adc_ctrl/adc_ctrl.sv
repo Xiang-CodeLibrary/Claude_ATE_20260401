@@ -1,3 +1,4 @@
+`timescale 1ns / 1ps
 // ADC Controller for ADS7959 (×2)
 // 12-bit SAR ADC, SPI interface, 8-channel MUX per chip
 // Used to read ADATE305 MEASOUT and DAC16_MON signals

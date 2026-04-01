@@ -1,3 +1,4 @@
+`timescale 1ns / 1ps
 // Pattern Sequencer
 // Fetches vectors from memory, decodes opcodes, and outputs per-channel pin states
 // This is the core execution engine of the pattern card

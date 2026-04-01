@@ -1,3 +1,4 @@
+`timescale 1ns / 1ps
 // Timing Clock Generation
 // Generates all clocks required by the timing engine from 200MHz system clock
 //

@@ -1,0 +1,1 @@
+-debug "typical" -top "tb_sequencer" -snapshot "tb_sequencer_snap" 

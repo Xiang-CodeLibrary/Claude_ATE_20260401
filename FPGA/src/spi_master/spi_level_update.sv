@@ -1,3 +1,4 @@
+`timescale 1ns / 1ps
 // SPI Level Update Engine
 // Monitors channel register changes and pushes updated DAC values to ADATE305 via SPI
 // Each ADATE305 chip has 2 channels, addressed as chip_id = channel / 2

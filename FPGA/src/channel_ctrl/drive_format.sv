@@ -1,3 +1,4 @@
+`timescale 1ns / 1ps
 // Drive Format Logic
 // Generates the actual output pin state based on drive format (NR/RL/RH/SBC)
 // and timing engine edge events

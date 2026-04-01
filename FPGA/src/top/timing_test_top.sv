@@ -1,3 +1,4 @@
+`timescale 1ns / 1ps
 // Timing Engine Hardware Verification Top-Level
 // Minimal version — no VIO/ILA IP dependency, uses JTAG BSCAN for debug
 // All control via hardcoded test patterns, results observed on LVDS outputs

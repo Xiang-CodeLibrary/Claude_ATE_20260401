@@ -1,3 +1,4 @@
+`timescale 1ns / 1ps
 // Source & Capture Engine
 // Source: Loads waveform data from memory, replaces pin states during pattern execution
 // Capture: Stores comparison results into capture memory for host readback

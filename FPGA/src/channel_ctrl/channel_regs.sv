@@ -1,3 +1,4 @@
+`timescale 1ns / 1ps
 // Per-Channel Register Block
 // Each channel has its own instance, holding DCL levels and PPMU configuration
 

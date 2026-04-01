@@ -1,0 +1,1 @@
+-debug "typical" -top "tb_spi_master" -snapshot "tb_spi_master_snap" 
