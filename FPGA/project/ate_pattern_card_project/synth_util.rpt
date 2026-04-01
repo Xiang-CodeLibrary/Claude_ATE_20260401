@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2025.2 (win64) Build 6299465 Fri Nov 14 19:35:11 GMT 2025
-| Date         : Wed Apr  1 14:20:15 2026
+| Date         : Wed Apr  1 14:48:38 2026
 | Host         : XIANG-OFFICE running 64-bit major release  (build 9200)
 | Command      : report_utilization -file D:/ATE_20260401/FPGA/project/ate_pattern_card_project/synth_util.rpt
 | Design       : ate_top
@@ -98,22 +98,29 @@ Warning! For any ECO changes, please run place_design if there are unplaced inst
 +------------------+------+-------+------------+-----------+-------+
 |     Site Type    | Used | Fixed | Prohibited | Available | Util% |
 +------------------+------+-------+------------+-----------+-------+
-| Bonded IOB       |   99 |    12 |          0 |       520 | 19.04 |
-|   HPIOB          |   12 |    12 |          0 |       416 |  2.88 |
-|     INPUT        |    6 |       |            |           |       |
-|     OUTPUT       |    6 |       |            |           |       |
+| Bonded IOB       |  163 |   136 |          0 |       520 | 31.35 |
+|   HPIOB          |  112 |   112 |          0 |       416 | 26.92 |
+|     INPUT        |   58 |       |            |           |       |
+|     OUTPUT       |   54 |       |            |           |       |
 |     BIDIR        |    0 |       |            |           |       |
-|   HRIO           |    0 |     0 |          0 |       104 |  0.00 |
-| HPIOBDIFFINBUF   |    3 |     3 |          0 |       192 |  1.56 |
-|   DIFFINBUF      |    3 |     3 |            |           |       |
-| HPIOBDIFFOUTBUF  |    3 |     3 |          0 |       192 |  1.56 |
-|   OBUFDS         |    3 |     3 |            |           |       |
-| HRIODIFFINBUF    |    0 |     0 |          0 |        48 |  0.00 |
-| HRIODIFFOUTBUF   |    0 |     0 |          0 |        48 |  0.00 |
+|   HRIO           |   24 |    24 |          0 |       104 | 23.08 |
+|     INPUT        |   12 |       |            |           |       |
+|     OUTPUT       |   12 |       |            |           |       |
+|     BIDIR        |    0 |       |            |           |       |
+| HPIOBDIFFINBUF   |   29 |    29 |          0 |       192 | 15.10 |
+|   DIFFINBUF      |   29 |    29 |            |           |       |
+| HPIOBDIFFOUTBUF  |   27 |    27 |          0 |       192 | 14.06 |
+|   OBUFDS         |   27 |    27 |            |           |       |
+| HRIODIFFINBUF    |    6 |     6 |          0 |        48 | 12.50 |
+|   DIFFINBUF      |    6 |     6 |            |           |       |
+| HRIODIFFOUTBUF   |    6 |     6 |          0 |        48 | 12.50 |
+|   OBUFDS         |    6 |     6 |            |           |       |
 | BITSLICE_CONTROL |    0 |     0 |          0 |        80 |  0.00 |
-| BITSLICE_RX_TX   |    4 |     4 |          0 |      3120 |  0.13 |
-|   ODELAY         |    2 |     2 |            |           |       |
-|   OSERDES        |    2 |     2 |            |           |       |
+| BITSLICE_RX_TX   |  128 |   128 |          0 |      3120 |  4.10 |
+|   IDELAY         |   32 |    32 |            |           |       |
+|   ODELAY         |   32 |    32 |            |           |       |
+|   ISERDES        |   32 |    32 |            |           |       |
+|   OSERDES        |   32 |    32 |            |           |       |
 | BITSLICE_TX      |    0 |     0 |          0 |        80 |  0.00 |
 | RIU_OR           |    0 |     0 |          0 |        40 |  0.00 |
 +------------------+------+-------+------------+-----------+-------+
@@ -174,24 +181,23 @@ Warning! For any ECO changes, please run place_design if there are unplaced inst
 |  Ref Name  | Used | Functional Category |
 +------------+------+---------------------+
 | FDCE       |  110 |            Register |
-| OBUF       |   47 |                 I/O |
 | LUT6       |   43 |                 CLB |
 | LUT4       |   39 |                 CLB |
+| IBUFCTRL   |   35 |              Others |
+| DIFFINBUF  |   35 |                 I/O |
+| OBUFDS     |   33 |                 I/O |
 | LUT2       |   33 |                 CLB |
+| OSERDESE3  |   32 |                 I/O |
+| ODELAYE3   |   32 |                 I/O |
+| ISERDESE3  |   32 |                 I/O |
+| IDELAYE3   |   32 |                 I/O |
+| OBUF       |   19 |                 I/O |
 | LUT5       |   19 |                 CLB |
-| IBUFCTRL   |   19 |              Others |
-| DIFFINBUF  |   19 |                 I/O |
-| OSERDESE3  |   16 |                 I/O |
-| ODELAYE3   |   16 |                 I/O |
 | LUT3       |   16 |                 CLB |
-| ISERDESE3  |   16 |                 I/O |
-| IDELAYE3   |   16 |                 I/O |
-| INV        |   14 |                 CLB |
 | OBUFT      |    8 |                 I/O |
 | FDPE       |    7 |            Register |
 | CARRY8     |    7 |                 CLB |
 | LUT1       |    4 |                 CLB |
-| OBUFDS     |    3 |                 I/O |
 | BUFGCE     |    3 |               Clock |
 | MMCME3_ADV |    1 |               Clock |
 | IDELAYCTRL |    1 |                 I/O |

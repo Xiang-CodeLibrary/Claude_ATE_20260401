@@ -33,11 +33,15 @@ module ate_top
     input  logic [NUM_ADC-1:0] adc_spi_miso,
     output logic [NUM_ADC-1:0] adc_spi_cs_n,
 
-    // LVDS to/from ADATE305 (16 channels)
-    output logic [NUM_CHANNELS-1:0] data0_p, data0_n,
-    input  logic [NUM_CHANNELS-1:0] rcv0_p,  rcv0_n,
-    input  logic [NUM_CHANNELS-1:0] comp_qh0_p, comp_qh0_n,
-    input  logic [NUM_CHANNELS-1:0] comp_ql0_p, comp_ql0_n,
+    // LVDS to/from ADATE305 (16 channels × 2 sub-channels)
+    output logic [NUM_CHANNELS-1:0] data0_p, data0_n,   // Drive data ch0
+    output logic [NUM_CHANNELS-1:0] data1_p, data1_n,   // Drive data ch1 (2x mode)
+    input  logic [NUM_CHANNELS-1:0] rcv0_p,  rcv0_n,    // Compare result ch0
+    input  logic [NUM_CHANNELS-1:0] rcv1_p,  rcv1_n,    // Compare result ch1
+    input  logic [NUM_CHANNELS-1:0] comp_qh0_p, comp_qh0_n, // Comparator high ch0
+    input  logic [NUM_CHANNELS-1:0] comp_qh1_p, comp_qh1_n, // Comparator high ch1
+    input  logic [NUM_CHANNELS-1:0] comp_ql0_p, comp_ql0_n, // Comparator low ch0
+    input  logic [NUM_CHANNELS-1:0] comp_ql1_p, comp_ql1_n, // Comparator low ch1
 
     // OVD from ADATE305
     input  logic [NUM_CHANNELS-1:0] ovd_ch0, ovd_ch1,
@@ -417,8 +421,8 @@ module ate_top
 
     generate
         for (genvar ch = 0; ch < NUM_CHANNELS; ch++) begin : g_serdes
-            // OSERDES3 + ODELAYE3 (drive) / ISERDES3 + IDELAYE3 (compare)
-            channel_serdes u_serdes (
+            // Channel 0: OSERDES3 + ODELAYE3 (drive) / ISERDES3 + IDELAYE3 (compare)
+            channel_serdes u_serdes_ch0 (
                 .clk_100(clk_100), .clk_400(clk_400), .rst(~rst_n),
                 .tx_data(te_ch_oserdes_d[ch]),
                 .tx_out_p(data0_p[ch]), .tx_out_n(data0_n[ch]),
@@ -430,10 +434,21 @@ module ate_top
                 .idelay_load(te_ch_idelay_load[ch])
             );
 
-            // Compare logic per channel
+            // Channel 1: second data/rcv pair (for 2x edge multiplier mode)
+            channel_serdes u_serdes_ch1 (
+                .clk_100(clk_100), .clk_400(clk_400), .rst(~rst_n),
+                .tx_data(8'h00),  // TODO: ch1 pattern from timing engine
+                .tx_out_p(data1_p[ch]), .tx_out_n(data1_n[ch]),
+                .odelay_tap(9'd0), .odelay_load(1'b0),
+                .rx_in_p(rcv1_p[ch]), .rx_in_n(rcv1_n[ch]),
+                .rx_data(),
+                .idelay_tap(9'd0), .idelay_load(1'b0)
+            );
+
+            // Compare logic per channel (uses ch0 comparator outputs)
             compare_logic u_compare (
                 .clk(clk_100), .rst_n(rst_n),
-                .comp_qh(comp_qh0_p[ch]),   // Direct from ADATE305 (single-ended after IBUFDS)
+                .comp_qh(comp_qh0_p[ch]),
                 .comp_ql(comp_ql0_p[ch]),
                 .comp_sample(te_ch_compare_strobe[ch]),
                 .comp_enable(vec_compare_en[ch]),
