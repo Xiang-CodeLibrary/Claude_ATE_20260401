@@ -143,7 +143,7 @@ package ate_pkg;
     parameter ADATE_REG_TEMP     = 7'h3F;
 
     // Device ID
-    parameter DEVICE_ID        = 32'hATE0_6571;
+    parameter DEVICE_ID        = 32'hA7E0_6571;
     parameter FPGA_VERSION     = 32'h0001_0000;  // v1.0.0
 
 endpackage

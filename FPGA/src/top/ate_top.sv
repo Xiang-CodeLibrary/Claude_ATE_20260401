@@ -107,7 +107,30 @@ module ate_top
     logic [1:0]  s_axi_rresp;
     logic        s_axi_rvalid, s_axi_rready;
 
-    // TODO: pcie_wrapper instantiation with Xilinx PCIe IP
+    // PCIe Wrapper (placeholder until IP generated)
+    logic pcie_user_clk, pcie_user_rst_n, pcie_lnk_up;
+
+    pcie_wrapper u_pcie (
+        .pcie_refclk_p(pcie_refclk_p), .pcie_refclk_n(pcie_refclk_n),
+        .pcie_tx_p(pcie_tx_p), .pcie_tx_n(pcie_tx_n),
+        .pcie_rx_p(pcie_rx_p), .pcie_rx_n(pcie_rx_n),
+        .pcie_perst_n(pcie_perst_n),
+        .user_clk(pcie_user_clk), .user_reset_n(pcie_user_rst_n),
+        .user_lnk_up(pcie_lnk_up),
+        .m_axi_awaddr(s_axi_awaddr), .m_axi_awprot(s_axi_awprot),
+        .m_axi_awvalid(s_axi_awvalid), .m_axi_awready(s_axi_awready),
+        .m_axi_wdata(s_axi_wdata), .m_axi_wstrb(s_axi_wstrb),
+        .m_axi_wvalid(s_axi_wvalid), .m_axi_wready(s_axi_wready),
+        .m_axi_bresp(s_axi_bresp), .m_axi_bvalid(s_axi_bvalid),
+        .m_axi_bready(s_axi_bready),
+        .m_axi_araddr(s_axi_araddr), .m_axi_arprot(s_axi_arprot),
+        .m_axi_arvalid(s_axi_arvalid), .m_axi_arready(s_axi_arready),
+        .m_axi_rdata(s_axi_rdata), .m_axi_rresp(s_axi_rresp),
+        .m_axi_rvalid(s_axi_rvalid), .m_axi_rready(s_axi_rready),
+        .dma_h2c_valid(), .dma_h2c_addr(), .dma_h2c_data(), .dma_h2c_ready(1'b1),
+        .dma_c2h_valid(1'b0), .dma_c2h_data('0), .dma_c2h_ready(),
+        .irq_req(irq_status[3:0]), .irq_ack()
+    );
 
     // ================================================================
     // AXI-Lite Slave → Register Bus
@@ -337,33 +360,95 @@ module ate_top
         .fifo_empty(), .fifo_level()
     );
 
-    // TODO: Connect ddr_rd_* to MIG IP AXI4 read port
-    assign ddr_rd_data  = '0;
-    assign ddr_rd_valid = 1'b0;
-    assign ddr_rd_ready = 1'b1;
+    // DDR3 Memory Controller
+    ddr3_wrapper u_ddr3 (
+        .sys_clk_200(sys_clk_200), .sys_rst_n(rst_n),
+        .ui_clk(), .ui_rst_n(), .init_calib_complete(),
+        // DDR3 physical pins (directly connected in constraints)
+        .ddr3_addr(), .ddr3_ba(), .ddr3_ras_n(), .ddr3_cas_n(), .ddr3_we_n(),
+        .ddr3_reset_n(), .ddr3_ck_p(), .ddr3_ck_n(), .ddr3_cke(), .ddr3_cs_n(),
+        .ddr3_dm(), .ddr3_dq(), .ddr3_dqs_p(), .ddr3_dqs_n(), .ddr3_odt(),
+        // Vector read port
+        .pa_rd_req(ddr_rd_req), .pa_rd_addr(ddr_rd_addr),
+        .pa_rd_data(ddr_rd_data), .pa_rd_valid(ddr_rd_valid),
+        .pa_rd_ready(ddr_rd_ready),
+        // DMA write port (from PCIe)
+        .pb_wr_req(1'b0), .pb_wr_addr('0), .pb_wr_data('0), .pb_wr_ready()
+    );
 
     // ================================================================
-    // Per-Channel SERDES (OSERDES3 + ODELAYE3 / ISERDES3 + IDELAYE3)
+    // Timing Engine — generates per-channel OSERDES patterns + delay taps
     // ================================================================
-    // Simplified: connect OSERDES with fixed 100MHz square pattern for now
-    // Full integration would use timing_engine output per channel
+    logic [7:0]  te_ch_oserdes_d [NUM_CHANNELS];
+    logic [8:0]  te_ch_odelay_tap [NUM_CHANNELS];
+    logic [NUM_CHANNELS-1:0] te_ch_odelay_load;
+    logic [8:0]  te_ch_idelay_tap [NUM_CHANNELS];
+    logic [NUM_CHANNELS-1:0] te_ch_idelay_load;
+    logic [NUM_CHANNELS-1:0] te_ch_compare_strobe;
+    logic        te_cycle_start, te_cycle_end;
+
+    // Convert edge_mult from 2-bit to bool for timing engine
+    logic ch_edge_2x [NUM_CHANNELS];
+    generate
+        for (genvar i = 0; i < NUM_CHANNELS; i++)
+            assign ch_edge_2x[i] = ch_edge_mult[i][0];
+    endgenerate
+
+    timing_engine u_timing_engine (
+        .clk_100(clk_100), .clk_400(clk_400), .clk_800(clk_800), .rst_n(rst_n),
+        .period_reg(vector_period),
+        .ts_wr_en(1'b0), .ts_wr_id(5'd0), .ts_wr_edge_sel(3'd0),
+        .ts_wr_ch(4'd0), .ts_wr_value(26'd0),
+        .tdr_wr_en(1'b0), .tdr_wr_ch(4'd0), .tdr_wr_value(9'd0),
+        .vec_valid(vec_valid), .vec_timeset(vec_timeset),
+        .ch_pin_state(vec_pin_state), .ch_drive_fmt(ch_drive_fmt),
+        .ch_edge_2x(ch_edge_2x),
+        .ch_oserdes_d(te_ch_oserdes_d),
+        .ch_odelay_tap(te_ch_odelay_tap), .ch_odelay_load(te_ch_odelay_load),
+        .ch_idelay_tap(te_ch_idelay_tap), .ch_idelay_load(te_ch_idelay_load),
+        .ch_compare_strobe(te_ch_compare_strobe),
+        .cycle_start(te_cycle_start), .cycle_end(te_cycle_end)
+    );
+
+    // ================================================================
+    // Per-Channel SERDES + Compare Logic
+    // ================================================================
+    logic [7:0] ch_rx_data [NUM_CHANNELS];
+
     generate
         for (genvar ch = 0; ch < NUM_CHANNELS; ch++) begin : g_serdes
+            // OSERDES3 + ODELAYE3 (drive) / ISERDES3 + IDELAYE3 (compare)
             channel_serdes u_serdes (
                 .clk_100(clk_100), .clk_400(clk_400), .rst(~rst_n),
-                .tx_data(8'h00),    // TODO: from timing engine per-channel pattern
+                .tx_data(te_ch_oserdes_d[ch]),
                 .tx_out_p(data0_p[ch]), .tx_out_n(data0_n[ch]),
-                .odelay_tap(9'd0), .odelay_load(1'b0),
+                .odelay_tap(te_ch_odelay_tap[ch]),
+                .odelay_load(te_ch_odelay_load[ch]),
                 .rx_in_p(rcv0_p[ch]), .rx_in_n(rcv0_n[ch]),
-                .rx_data(),
-                .idelay_tap(9'd0), .idelay_load(1'b0)
+                .rx_data(ch_rx_data[ch]),
+                .idelay_tap(te_ch_idelay_tap[ch]),
+                .idelay_load(te_ch_idelay_load[ch])
+            );
+
+            // Compare logic per channel
+            compare_logic u_compare (
+                .clk(clk_100), .rst_n(rst_n),
+                .comp_qh(comp_qh0_p[ch]),   // Direct from ADATE305 (single-ended after IBUFDS)
+                .comp_ql(comp_ql0_p[ch]),
+                .comp_sample(te_ch_compare_strobe[ch]),
+                .comp_enable(vec_compare_en[ch]),
+                .expected_state(vec_pin_state[ch]),
+                .compare_pass(compare_pass[ch]),
+                .compare_valid(),
+                .compare_fail_latch()
             );
         end
     endgenerate
 
-    // Compare pass aggregation (simplified: always pass for now)
-    assign compare_pass  = {NUM_CHANNELS{1'b1}};
-    assign compare_valid = vec_valid; // 1 cycle after vec_valid in real design
+    // Compare valid: one cycle after all compare strobes fire
+    logic [NUM_CHANNELS-1:0] strobe_d;
+    always_ff @(posedge clk_100) strobe_d <= te_ch_compare_strobe;
+    assign compare_valid = |strobe_d;
 
     // ================================================================
     // Trigger Interface

@@ -141,20 +141,57 @@ module timing_engine
     (* ram_style = "block" *)
     logic [TS_MEM_DATA_W-1:0] ts_mem [TS_MEM_DEPTH];
 
-    // Write port (configuration)
-    logic [TS_MEM_ADDR_W-1:0] ts_wr_addr_int;
+    // Single write port; broadcast (ch=0xF) handled by sequencing writes over multiple clocks
+    logic [TS_MEM_ADDR_W-1:0] ts_wr_addr_seq;
+    logic [3:0]  bcast_cnt;
+    logic        bcast_active;
+    logic [25:0] bcast_value;
+    logic [4:0]  bcast_ts_id;
+    logic [2:0]  bcast_edge;
 
-    always_ff @(posedge clk_100) begin
-        if (ts_wr_en) begin
-            if (ts_wr_ch == 4'hF) begin
-                // Write all channels
-                for (int ch = 0; ch < NUM_CHANNELS; ch++) begin
-                    ts_mem[{ts_wr_id, ts_wr_edge_sel, ch[3:0]}] <= ts_wr_value;
-                end
-            end else begin
-                ts_mem[{ts_wr_id, ts_wr_edge_sel, ts_wr_ch}] <= ts_wr_value;
+    always_ff @(posedge clk_100 or negedge rst_n) begin
+        if (!rst_n) begin
+            bcast_active <= 1'b0;
+            bcast_cnt    <= '0;
+        end else begin
+            if (ts_wr_en && ts_wr_ch == 4'hF && !bcast_active) begin
+                bcast_active <= 1'b1;
+                bcast_cnt    <= '0;
+                bcast_value  <= ts_wr_value;
+                bcast_ts_id  <= ts_wr_id;
+                bcast_edge   <= ts_wr_edge_sel;
+            end else if (bcast_active) begin
+                bcast_cnt <= bcast_cnt + 1'b1;
+                if (bcast_cnt == NUM_CHANNELS - 1)
+                    bcast_active <= 1'b0;
             end
         end
+    end
+
+    // Memory write: single port, either direct or broadcast
+    logic        ts_mem_wr;
+    logic [TS_MEM_ADDR_W-1:0] ts_mem_wr_addr;
+    logic [TS_MEM_DATA_W-1:0] ts_mem_wr_data;
+
+    always_comb begin
+        if (bcast_active) begin
+            ts_mem_wr      = 1'b1;
+            ts_mem_wr_addr = {bcast_ts_id, bcast_edge, bcast_cnt};
+            ts_mem_wr_data = bcast_value;
+        end else if (ts_wr_en && ts_wr_ch != 4'hF) begin
+            ts_mem_wr      = 1'b1;
+            ts_mem_wr_addr = {ts_wr_id, ts_wr_edge_sel, ts_wr_ch};
+            ts_mem_wr_data = ts_wr_value;
+        end else begin
+            ts_mem_wr      = 1'b0;
+            ts_mem_wr_addr = '0;
+            ts_mem_wr_data = '0;
+        end
+    end
+
+    always_ff @(posedge clk_100) begin
+        if (ts_mem_wr)
+            ts_mem[ts_mem_wr_addr] <= ts_mem_wr_data;
     end
 
     // ================================================================

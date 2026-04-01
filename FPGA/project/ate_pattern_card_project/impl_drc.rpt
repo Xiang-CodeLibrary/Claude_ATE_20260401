@@ -1,0 +1,309 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2 (win64) Build 6299465 Fri Nov 14 19:35:11 GMT 2025
+| Date         : Wed Apr  1 14:22:13 2026
+| Host         : XIANG-OFFICE running 64-bit major release  (build 9200)
+| Command      : report_drc -file D:/ATE_20260401/FPGA/project/ate_pattern_card_project/impl_drc.rpt
+| Design       : ate_top
+| Device       : xcku035-ffva1156-2-i
+| Speed File   : -2
+| Design State : Fully Routed
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Report DRC
+
+Table of Contents
+-----------------
+1. REPORT SUMMARY
+2. REPORT DETAILS
+
+1. REPORT SUMMARY
+-----------------
+            Netlist: netlist
+          Floorplan: impl_1
+      Design limits: <entire design considered>
+           Ruledeck: default
+             Max checks: <unlimited>
+             Checks found: 51
++------------+----------+-----------------------------------------------------+--------+
+| Rule       | Severity | Description                                         | Checks |
++------------+----------+-----------------------------------------------------+--------+
+| CFGBVS-1   | Warning  | Missing CFGBVS and CONFIG_VOLTAGE Design Properties | 1      |
+| NSTD-1     | Warning  | Unspecified I/O Standard                            | 1      |
+| PORTPROP-2 | Warning  | selectio_diff_term                                  | 32     |
+| REQP-1803  | Warning  | enum_DELAY_TYPE_VAR_EN_VTC_HIGH                     | 16     |
+| UCIO-1     | Warning  | Unconstrained Logical Port                          | 1      |
++------------+----------+-----------------------------------------------------+--------+
+
+2. REPORT DETAILS
+-----------------
+CFGBVS-1#1 Warning
+Missing CFGBVS and CONFIG_VOLTAGE Design Properties  
+Neither the CFGBVS nor CONFIG_VOLTAGE voltage property is set in the current_design.  Configuration bank voltage select (CFGBVS) must be set to VCCO or GND, and CONFIG_VOLTAGE must be set to the correct configuration voltage, in order to determine the I/O voltage support for the pins in bank 0.  It is suggested to specify these either using the 'Edit Device Properties' function in the GUI or directly in the XDC file using the following syntax:
+
+ set_property CFGBVS value1 [current_design]
+ #where value1 is either VCCO or GND
+
+ set_property CONFIG_VOLTAGE value2 [current_design]
+ #where value2 is the voltage provided to configuration bank 0
+
+Refer to the device configuration user guide for more information.
+Related violations: <none>
+
+NSTD-1#1 Warning
+Unspecified I/O Standard  
+55 out of 63 logical ports use I/O standard (IOSTANDARD) value 'DEFAULT', instead of a user assigned specific value. This may cause I/O contention or incompatibility with the board power or connectivity affecting performance, signal integrity or in extreme cases cause damage to the device or the components to which it is connected. To correct this violation, specify all I/O standards. This design will fail to generate a bitstream unless all logical ports have a user specified I/O standard value defined. To allow bitstream creation with unspecified I/O standard values (not recommended), use this command: set_property SEVERITY {Warning} [get_drc_checks NSTD-1].  NOTE: When using the Vivado Runs infrastructure (e.g. launch_runs Tcl command), add this command to a .tcl file and add that file as a pre-hook for write_bitstream step for the implementation run. Problem ports: adate_spi_cs_n[7:0], adc_spi_cs_n[1:0], adc_spi_mosi[1:0],
+adc_spi_sclk[1:0], data0_n[10], data0_n[11], data0_n[12], data0_n[13],
+data0_n[14], data0_n[15], data0_n[5], data0_n[6], data0_n[7], data0_n[8],
+data0_n[9] (the first 15 of 39 listed).
+Related violations: <none>
+
+PORTPROP-2#1 Warning
+selectio_diff_term  
+The port rcv0_n[0] has an invalid DIFF_TERM property value. For the target architecture, IOSTANDARD value DIFF_HSTL_I_18 does not support on-chip input differential termination. The DIFF_TERM property value will be ignored.
+Related violations: <none>
+
+PORTPROP-2#2 Warning
+selectio_diff_term  
+The port rcv0_n[10] has an invalid DIFF_TERM property value. For the target architecture, IOSTANDARD value DIFF_HSTL_I_18 does not support on-chip input differential termination. The DIFF_TERM property value will be ignored.
+Related violations: <none>
+
+PORTPROP-2#3 Warning
+selectio_diff_term  
+The port rcv0_n[11] has an invalid DIFF_TERM property value. For the target architecture, IOSTANDARD value DIFF_HSTL_I_18 does not support on-chip input differential termination. The DIFF_TERM property value will be ignored.
+Related violations: <none>
+
+PORTPROP-2#4 Warning
+selectio_diff_term  
+The port rcv0_n[12] has an invalid DIFF_TERM property value. For the target architecture, IOSTANDARD value DIFF_HSTL_I_18 does not support on-chip input differential termination. The DIFF_TERM property value will be ignored.
+Related violations: <none>
+
+PORTPROP-2#5 Warning
+selectio_diff_term  
+The port rcv0_n[13] has an invalid DIFF_TERM property value. For the target architecture, IOSTANDARD value DIFF_HSTL_I_18 does not support on-chip input differential termination. The DIFF_TERM property value will be ignored.
+Related violations: <none>
+
+PORTPROP-2#6 Warning
+selectio_diff_term  
+The port rcv0_n[14] has an invalid DIFF_TERM property value. For the target architecture, IOSTANDARD value DIFF_HSTL_I_18 does not support on-chip input differential termination. The DIFF_TERM property value will be ignored.
+Related violations: <none>
+
+PORTPROP-2#7 Warning
+selectio_diff_term  
+The port rcv0_n[15] has an invalid DIFF_TERM property value. For the target architecture, IOSTANDARD value DIFF_HSTL_I_18 does not support on-chip input differential termination. The DIFF_TERM property value will be ignored.
+Related violations: <none>
+
+PORTPROP-2#8 Warning
+selectio_diff_term  
+The port rcv0_n[1] has an invalid DIFF_TERM property value. For the target architecture, IOSTANDARD value DIFF_HSTL_I_18 does not support on-chip input differential termination. The DIFF_TERM property value will be ignored.
+Related violations: <none>
+
+PORTPROP-2#9 Warning
+selectio_diff_term  
+The port rcv0_n[2] has an invalid DIFF_TERM property value. For the target architecture, IOSTANDARD value DIFF_HSTL_I_18 does not support on-chip input differential termination. The DIFF_TERM property value will be ignored.
+Related violations: <none>
+
+PORTPROP-2#10 Warning
+selectio_diff_term  
+The port rcv0_n[3] has an invalid DIFF_TERM property value. For the target architecture, IOSTANDARD value DIFF_HSTL_I_18 does not support on-chip input differential termination. The DIFF_TERM property value will be ignored.
+Related violations: <none>
+
+PORTPROP-2#11 Warning
+selectio_diff_term  
+The port rcv0_n[4] has an invalid DIFF_TERM property value. For the target architecture, IOSTANDARD value DIFF_HSTL_I_18 does not support on-chip input differential termination. The DIFF_TERM property value will be ignored.
+Related violations: <none>
+
+PORTPROP-2#12 Warning
+selectio_diff_term  
+The port rcv0_n[5] has an invalid DIFF_TERM property value. For the target architecture, IOSTANDARD value DIFF_HSTL_I_18 does not support on-chip input differential termination. The DIFF_TERM property value will be ignored.
+Related violations: <none>
+
+PORTPROP-2#13 Warning
+selectio_diff_term  
+The port rcv0_n[6] has an invalid DIFF_TERM property value. For the target architecture, IOSTANDARD value DIFF_HSTL_I_18 does not support on-chip input differential termination. The DIFF_TERM property value will be ignored.
+Related violations: <none>
+
+PORTPROP-2#14 Warning
+selectio_diff_term  
+The port rcv0_n[7] has an invalid DIFF_TERM property value. For the target architecture, IOSTANDARD value DIFF_HSTL_I_18 does not support on-chip input differential termination. The DIFF_TERM property value will be ignored.
+Related violations: <none>
+
+PORTPROP-2#15 Warning
+selectio_diff_term  
+The port rcv0_n[8] has an invalid DIFF_TERM property value. For the target architecture, IOSTANDARD value DIFF_HSTL_I_18 does not support on-chip input differential termination. The DIFF_TERM property value will be ignored.
+Related violations: <none>
+
+PORTPROP-2#16 Warning
+selectio_diff_term  
+The port rcv0_n[9] has an invalid DIFF_TERM property value. For the target architecture, IOSTANDARD value DIFF_HSTL_I_18 does not support on-chip input differential termination. The DIFF_TERM property value will be ignored.
+Related violations: <none>
+
+PORTPROP-2#17 Warning
+selectio_diff_term  
+The port rcv0_p[0] has an invalid DIFF_TERM property value. For the target architecture, IOSTANDARD value DIFF_HSTL_I_18 does not support on-chip input differential termination. The DIFF_TERM property value will be ignored.
+Related violations: <none>
+
+PORTPROP-2#18 Warning
+selectio_diff_term  
+The port rcv0_p[10] has an invalid DIFF_TERM property value. For the target architecture, IOSTANDARD value DIFF_HSTL_I_18 does not support on-chip input differential termination. The DIFF_TERM property value will be ignored.
+Related violations: <none>
+
+PORTPROP-2#19 Warning
+selectio_diff_term  
+The port rcv0_p[11] has an invalid DIFF_TERM property value. For the target architecture, IOSTANDARD value DIFF_HSTL_I_18 does not support on-chip input differential termination. The DIFF_TERM property value will be ignored.
+Related violations: <none>
+
+PORTPROP-2#20 Warning
+selectio_diff_term  
+The port rcv0_p[12] has an invalid DIFF_TERM property value. For the target architecture, IOSTANDARD value DIFF_HSTL_I_18 does not support on-chip input differential termination. The DIFF_TERM property value will be ignored.
+Related violations: <none>
+
+PORTPROP-2#21 Warning
+selectio_diff_term  
+The port rcv0_p[13] has an invalid DIFF_TERM property value. For the target architecture, IOSTANDARD value DIFF_HSTL_I_18 does not support on-chip input differential termination. The DIFF_TERM property value will be ignored.
+Related violations: <none>
+
+PORTPROP-2#22 Warning
+selectio_diff_term  
+The port rcv0_p[14] has an invalid DIFF_TERM property value. For the target architecture, IOSTANDARD value DIFF_HSTL_I_18 does not support on-chip input differential termination. The DIFF_TERM property value will be ignored.
+Related violations: <none>
+
+PORTPROP-2#23 Warning
+selectio_diff_term  
+The port rcv0_p[15] has an invalid DIFF_TERM property value. For the target architecture, IOSTANDARD value DIFF_HSTL_I_18 does not support on-chip input differential termination. The DIFF_TERM property value will be ignored.
+Related violations: <none>
+
+PORTPROP-2#24 Warning
+selectio_diff_term  
+The port rcv0_p[1] has an invalid DIFF_TERM property value. For the target architecture, IOSTANDARD value DIFF_HSTL_I_18 does not support on-chip input differential termination. The DIFF_TERM property value will be ignored.
+Related violations: <none>
+
+PORTPROP-2#25 Warning
+selectio_diff_term  
+The port rcv0_p[2] has an invalid DIFF_TERM property value. For the target architecture, IOSTANDARD value DIFF_HSTL_I_18 does not support on-chip input differential termination. The DIFF_TERM property value will be ignored.
+Related violations: <none>
+
+PORTPROP-2#26 Warning
+selectio_diff_term  
+The port rcv0_p[3] has an invalid DIFF_TERM property value. For the target architecture, IOSTANDARD value DIFF_HSTL_I_18 does not support on-chip input differential termination. The DIFF_TERM property value will be ignored.
+Related violations: <none>
+
+PORTPROP-2#27 Warning
+selectio_diff_term  
+The port rcv0_p[4] has an invalid DIFF_TERM property value. For the target architecture, IOSTANDARD value DIFF_HSTL_I_18 does not support on-chip input differential termination. The DIFF_TERM property value will be ignored.
+Related violations: <none>
+
+PORTPROP-2#28 Warning
+selectio_diff_term  
+The port rcv0_p[5] has an invalid DIFF_TERM property value. For the target architecture, IOSTANDARD value DIFF_HSTL_I_18 does not support on-chip input differential termination. The DIFF_TERM property value will be ignored.
+Related violations: <none>
+
+PORTPROP-2#29 Warning
+selectio_diff_term  
+The port rcv0_p[6] has an invalid DIFF_TERM property value. For the target architecture, IOSTANDARD value DIFF_HSTL_I_18 does not support on-chip input differential termination. The DIFF_TERM property value will be ignored.
+Related violations: <none>
+
+PORTPROP-2#30 Warning
+selectio_diff_term  
+The port rcv0_p[7] has an invalid DIFF_TERM property value. For the target architecture, IOSTANDARD value DIFF_HSTL_I_18 does not support on-chip input differential termination. The DIFF_TERM property value will be ignored.
+Related violations: <none>
+
+PORTPROP-2#31 Warning
+selectio_diff_term  
+The port rcv0_p[8] has an invalid DIFF_TERM property value. For the target architecture, IOSTANDARD value DIFF_HSTL_I_18 does not support on-chip input differential termination. The DIFF_TERM property value will be ignored.
+Related violations: <none>
+
+PORTPROP-2#32 Warning
+selectio_diff_term  
+The port rcv0_p[9] has an invalid DIFF_TERM property value. For the target architecture, IOSTANDARD value DIFF_HSTL_I_18 does not support on-chip input differential termination. The DIFF_TERM property value will be ignored.
+Related violations: <none>
+
+REQP-1803#1 Warning
+enum_DELAY_TYPE_VAR_EN_VTC_HIGH  
+The ODELAYE3 g_serdes[0].u_serdes/u_odelay DELAY_TYPE is VARIABLE or VAR_LOAD and the EN_VTC pin is HIGH or unused, which means that the variable loading of delays will not occur for this delay element. EN_VTC must be LOW prior to and during use of the CE/INC and/or LOAD pins that change the tap value. For more details please refer to the Select IO User Guide UG571.
+Related violations: <none>
+
+REQP-1803#2 Warning
+enum_DELAY_TYPE_VAR_EN_VTC_HIGH  
+The ODELAYE3 g_serdes[10].u_serdes/u_odelay DELAY_TYPE is VARIABLE or VAR_LOAD and the EN_VTC pin is HIGH or unused, which means that the variable loading of delays will not occur for this delay element. EN_VTC must be LOW prior to and during use of the CE/INC and/or LOAD pins that change the tap value. For more details please refer to the Select IO User Guide UG571.
+Related violations: <none>
+
+REQP-1803#3 Warning
+enum_DELAY_TYPE_VAR_EN_VTC_HIGH  
+The ODELAYE3 g_serdes[11].u_serdes/u_odelay DELAY_TYPE is VARIABLE or VAR_LOAD and the EN_VTC pin is HIGH or unused, which means that the variable loading of delays will not occur for this delay element. EN_VTC must be LOW prior to and during use of the CE/INC and/or LOAD pins that change the tap value. For more details please refer to the Select IO User Guide UG571.
+Related violations: <none>
+
+REQP-1803#4 Warning
+enum_DELAY_TYPE_VAR_EN_VTC_HIGH  
+The ODELAYE3 g_serdes[12].u_serdes/u_odelay DELAY_TYPE is VARIABLE or VAR_LOAD and the EN_VTC pin is HIGH or unused, which means that the variable loading of delays will not occur for this delay element. EN_VTC must be LOW prior to and during use of the CE/INC and/or LOAD pins that change the tap value. For more details please refer to the Select IO User Guide UG571.
+Related violations: <none>
+
+REQP-1803#5 Warning
+enum_DELAY_TYPE_VAR_EN_VTC_HIGH  
+The ODELAYE3 g_serdes[13].u_serdes/u_odelay DELAY_TYPE is VARIABLE or VAR_LOAD and the EN_VTC pin is HIGH or unused, which means that the variable loading of delays will not occur for this delay element. EN_VTC must be LOW prior to and during use of the CE/INC and/or LOAD pins that change the tap value. For more details please refer to the Select IO User Guide UG571.
+Related violations: <none>
+
+REQP-1803#6 Warning
+enum_DELAY_TYPE_VAR_EN_VTC_HIGH  
+The ODELAYE3 g_serdes[14].u_serdes/u_odelay DELAY_TYPE is VARIABLE or VAR_LOAD and the EN_VTC pin is HIGH or unused, which means that the variable loading of delays will not occur for this delay element. EN_VTC must be LOW prior to and during use of the CE/INC and/or LOAD pins that change the tap value. For more details please refer to the Select IO User Guide UG571.
+Related violations: <none>
+
+REQP-1803#7 Warning
+enum_DELAY_TYPE_VAR_EN_VTC_HIGH  
+The ODELAYE3 g_serdes[15].u_serdes/u_odelay DELAY_TYPE is VARIABLE or VAR_LOAD and the EN_VTC pin is HIGH or unused, which means that the variable loading of delays will not occur for this delay element. EN_VTC must be LOW prior to and during use of the CE/INC and/or LOAD pins that change the tap value. For more details please refer to the Select IO User Guide UG571.
+Related violations: <none>
+
+REQP-1803#8 Warning
+enum_DELAY_TYPE_VAR_EN_VTC_HIGH  
+The ODELAYE3 g_serdes[1].u_serdes/u_odelay DELAY_TYPE is VARIABLE or VAR_LOAD and the EN_VTC pin is HIGH or unused, which means that the variable loading of delays will not occur for this delay element. EN_VTC must be LOW prior to and during use of the CE/INC and/or LOAD pins that change the tap value. For more details please refer to the Select IO User Guide UG571.
+Related violations: <none>
+
+REQP-1803#9 Warning
+enum_DELAY_TYPE_VAR_EN_VTC_HIGH  
+The ODELAYE3 g_serdes[2].u_serdes/u_odelay DELAY_TYPE is VARIABLE or VAR_LOAD and the EN_VTC pin is HIGH or unused, which means that the variable loading of delays will not occur for this delay element. EN_VTC must be LOW prior to and during use of the CE/INC and/or LOAD pins that change the tap value. For more details please refer to the Select IO User Guide UG571.
+Related violations: <none>
+
+REQP-1803#10 Warning
+enum_DELAY_TYPE_VAR_EN_VTC_HIGH  
+The ODELAYE3 g_serdes[3].u_serdes/u_odelay DELAY_TYPE is VARIABLE or VAR_LOAD and the EN_VTC pin is HIGH or unused, which means that the variable loading of delays will not occur for this delay element. EN_VTC must be LOW prior to and during use of the CE/INC and/or LOAD pins that change the tap value. For more details please refer to the Select IO User Guide UG571.
+Related violations: <none>
+
+REQP-1803#11 Warning
+enum_DELAY_TYPE_VAR_EN_VTC_HIGH  
+The ODELAYE3 g_serdes[4].u_serdes/u_odelay DELAY_TYPE is VARIABLE or VAR_LOAD and the EN_VTC pin is HIGH or unused, which means that the variable loading of delays will not occur for this delay element. EN_VTC must be LOW prior to and during use of the CE/INC and/or LOAD pins that change the tap value. For more details please refer to the Select IO User Guide UG571.
+Related violations: <none>
+
+REQP-1803#12 Warning
+enum_DELAY_TYPE_VAR_EN_VTC_HIGH  
+The ODELAYE3 g_serdes[5].u_serdes/u_odelay DELAY_TYPE is VARIABLE or VAR_LOAD and the EN_VTC pin is HIGH or unused, which means that the variable loading of delays will not occur for this delay element. EN_VTC must be LOW prior to and during use of the CE/INC and/or LOAD pins that change the tap value. For more details please refer to the Select IO User Guide UG571.
+Related violations: <none>
+
+REQP-1803#13 Warning
+enum_DELAY_TYPE_VAR_EN_VTC_HIGH  
+The ODELAYE3 g_serdes[6].u_serdes/u_odelay DELAY_TYPE is VARIABLE or VAR_LOAD and the EN_VTC pin is HIGH or unused, which means that the variable loading of delays will not occur for this delay element. EN_VTC must be LOW prior to and during use of the CE/INC and/or LOAD pins that change the tap value. For more details please refer to the Select IO User Guide UG571.
+Related violations: <none>
+
+REQP-1803#14 Warning
+enum_DELAY_TYPE_VAR_EN_VTC_HIGH  
+The ODELAYE3 g_serdes[7].u_serdes/u_odelay DELAY_TYPE is VARIABLE or VAR_LOAD and the EN_VTC pin is HIGH or unused, which means that the variable loading of delays will not occur for this delay element. EN_VTC must be LOW prior to and during use of the CE/INC and/or LOAD pins that change the tap value. For more details please refer to the Select IO User Guide UG571.
+Related violations: <none>
+
+REQP-1803#15 Warning
+enum_DELAY_TYPE_VAR_EN_VTC_HIGH  
+The ODELAYE3 g_serdes[8].u_serdes/u_odelay DELAY_TYPE is VARIABLE or VAR_LOAD and the EN_VTC pin is HIGH or unused, which means that the variable loading of delays will not occur for this delay element. EN_VTC must be LOW prior to and during use of the CE/INC and/or LOAD pins that change the tap value. For more details please refer to the Select IO User Guide UG571.
+Related violations: <none>
+
+REQP-1803#16 Warning
+enum_DELAY_TYPE_VAR_EN_VTC_HIGH  
+The ODELAYE3 g_serdes[9].u_serdes/u_odelay DELAY_TYPE is VARIABLE or VAR_LOAD and the EN_VTC pin is HIGH or unused, which means that the variable loading of delays will not occur for this delay element. EN_VTC must be LOW prior to and during use of the CE/INC and/or LOAD pins that change the tap value. For more details please refer to the Select IO User Guide UG571.
+Related violations: <none>
+
+UCIO-1#1 Warning
+Unconstrained Logical Port  
+55 out of 63 logical ports have no user assigned specific location constraint (LOC). This may cause I/O contention or incompatibility with the board power or connectivity affecting performance, signal integrity or in extreme cases cause damage to the device or the components to which it is connected. To correct this violation, specify all pin locations. This design will fail to generate a bitstream unless all logical ports have a user specified site LOC constraint defined.  To allow bitstream creation with unspecified pin locations (not recommended), use this command: set_property SEVERITY {Warning} [get_drc_checks UCIO-1].  NOTE: When using the Vivado Runs infrastructure (e.g. launch_runs Tcl command), add this command to a .tcl file and add that file as a pre-hook for write_bitstream step for the implementation run.  Problem ports: adate_spi_cs_n[7:0], adc_spi_cs_n[1:0], adc_spi_mosi[1:0],
+adc_spi_sclk[1:0], data0_n[10], data0_n[11], data0_n[12], data0_n[13],
+data0_n[14], data0_n[15], data0_n[5], data0_n[6], data0_n[7], data0_n[8],
+data0_n[9] (the first 15 of 39 listed).
+Related violations: <none>
+
+
