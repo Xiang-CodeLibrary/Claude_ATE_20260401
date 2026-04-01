@@ -1,0 +1,1 @@
+-debug "typical" -top "tb_source_capture" -snapshot "tb_source_capture_snap" 

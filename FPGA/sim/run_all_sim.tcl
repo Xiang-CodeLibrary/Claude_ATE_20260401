@@ -77,6 +77,27 @@ run_tb "tb_reg_map" [list \
     "$sim_dir/tb_reg_map.sv" \
 ]
 
+## TB4: Drive Format
+run_tb "tb_drive_format" [list \
+    "$src_dir/top/ate_pkg.sv" \
+    "$src_dir/channel_ctrl/drive_format.sv" \
+    "$sim_dir/tb_drive_format.sv" \
+]
+
+## TB5: ADC Controller
+run_tb "tb_adc_ctrl" [list \
+    "$src_dir/top/ate_pkg.sv" \
+    "$src_dir/adc_ctrl/adc_ctrl.sv" \
+    "$sim_dir/tb_adc_ctrl.sv" \
+]
+
+## TB6: Source/Capture
+run_tb "tb_source_capture" [list \
+    "$src_dir/top/ate_pkg.sv" \
+    "$src_dir/pattern_engine/source_capture.sv" \
+    "$sim_dir/tb_source_capture.sv" \
+]
+
 ## Summary
 puts ""
 puts "============================================================"

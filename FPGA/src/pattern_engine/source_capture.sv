@@ -71,29 +71,32 @@ module source_capture
     // Source Controller
     // ================================================================
     logic [19:0] src_ptr;
-    logic [19:0] src_length;
+    logic        src_rd_pending; // 1-cycle delay for BRAM read latency
 
     always_ff @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
-            src_running <= 1'b0;
-            src_ptr     <= '0;
-            src_valid   <= 1'b0;
+            src_running    <= 1'b0;
+            src_ptr        <= '0;
+            src_valid      <= 1'b0;
+            src_rd_pending <= 1'b0;
         end else begin
-            src_valid <= 1'b0;
+            // src_valid follows BRAM read by 1 cycle
+            src_valid      <= src_rd_pending;
+            src_rd_pending <= 1'b0;
 
             if (src_start) begin
                 src_running <= 1'b1;
                 src_ptr     <= '0;
             end
 
-            if (src_stop || !src_running) begin
+            if (src_stop) begin
                 src_running <= 1'b0;
             end
 
             if (src_active && src_running) begin
-                src_rd_addr <= src_ptr;
-                src_ptr     <= src_ptr + 1'b1;
-                src_valid   <= 1'b1;
+                src_rd_addr    <= src_ptr;
+                src_ptr        <= src_ptr + 1'b1;
+                src_rd_pending <= 1'b1;
             end
         end
     end
