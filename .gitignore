@@ -1,0 +1,33 @@
+# Allegro PCB design temp files
+*.lck
+*.jrl
+*.jrl,*
+*.log
+*.log,*
+downrev.log*
+signoise.run/
+sigxp.run/
+
+# Vivado project files (keep sources, ignore generated)
+FPGA/project/**/*.runs/
+FPGA/project/**/*.cache/
+FPGA/project/**/*.hw/
+FPGA/project/**/*.ip_user_files/
+FPGA/project/**/*.sim/
+FPGA/project/**/*.srcs/sources_1/ip/**/synth/
+*.bit
+*.ltx
+*.dcp
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Editor
+*.swp
+*.swo
+*~
+
+# Python
+__pycache__/
+*.pyc
