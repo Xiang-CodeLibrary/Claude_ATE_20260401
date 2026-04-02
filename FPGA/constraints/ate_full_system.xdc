@@ -6,9 +6,9 @@
 ## ===================== System Clocks =====================
 set_property PACKAGE_PIN AH18 [get_ports sys_clk_p]
 set_property PACKAGE_PIN AH17 [get_ports sys_clk_n]
-set_property IOSTANDARD LVDS [get_ports sys_clk_p]
-set_property IOSTANDARD LVDS [get_ports sys_clk_n]
-set_property DIFF_TERM TRUE [get_ports sys_clk_p]
+set_property IOSTANDARD DIFF_SSTL15 [get_ports sys_clk_p]
+set_property IOSTANDARD DIFF_SSTL15 [get_ports sys_clk_n]
+## DIFF_TERM not needed for SSTL15
 create_clock -period 5.000 -name sys_clk_200 [get_ports sys_clk_p]
 
 set_property PACKAGE_PIN E18 [get_ports pxie_clk100_p]

@@ -3,10 +3,10 @@
 # SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
 # IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
 # SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
-# Start of session at: Wed Apr  1 15:14:29 2026
-# Process ID         : 39792
+# Start of session at: Thu Apr  2 12:16:10 2026
+# Process ID         : 37284
 # Current directory  : D:/ATE_20260401/FPGA/project
-# Command line       : vivado.exe -mode batch -source build_full_system.tcl
+# Command line       : vivado.exe -mode batch -source gen_bit_from_dcp.tcl
 # Log file           : D:/ATE_20260401/FPGA/project/vivado.log
 # Journal file       : D:/ATE_20260401/FPGA/project\vivado.jou
 # Running On         : XIANG-OFFICE
@@ -19,6 +19,6 @@
 # Host memory        : 34084 MB
 # Swap memory        : 5368 MB
 # Total Virtual      : 39453 MB
-# Available Virtual  : 13282 MB
+# Available Virtual  : 13815 MB
 #-----------------------------------------------------------
-source build_full_system.tcl
+source gen_bit_from_dcp.tcl

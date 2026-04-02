@@ -76,7 +76,7 @@ module ate_top
     // Clocks & Reset
     // ================================================================
     logic sys_clk_200;
-    IBUFDS #(.DIFF_TERM("TRUE")) u_sys_buf (
+    IBUFDS u_sys_buf (
         .I(sys_clk_p), .IB(sys_clk_n), .O(sys_clk_200)
     );
 
