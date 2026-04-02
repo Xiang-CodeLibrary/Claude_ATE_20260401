@@ -1,0 +1,1 @@
+-debug "typical" -top "tb_trigger_intf" -snapshot "tb_trigger_intf_snap" 

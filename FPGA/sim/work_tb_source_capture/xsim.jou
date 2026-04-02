@@ -3,8 +3,8 @@
 # SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
 # IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
 # SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
-# Start of session at: Wed Apr  1 15:35:48 2026
-# Process ID         : 4324
+# Start of session at: Thu Apr  2 12:46:50 2026
+# Process ID         : 35800
 # Current directory  : D:/ATE_20260401/FPGA/sim/work_tb_source_capture
 # Command line       : xsim.exe -mode tcl -source {xsim.dir/tb_source_capture_snap/xsim_script.tcl}
 # Log file           : D:/ATE_20260401/FPGA/sim/work_tb_source_capture/xsim.log
@@ -19,7 +19,7 @@
 # Host memory        : 34084 MB
 # Swap memory        : 5368 MB
 # Total Virtual      : 39453 MB
-# Available Virtual  : 6676 MB
+# Available Virtual  : 9116 MB
 #-----------------------------------------------------------
 source xsim.dir/tb_source_capture_snap/xsim_script.tcl
 run -all

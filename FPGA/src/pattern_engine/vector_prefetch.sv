@@ -63,18 +63,23 @@ module vector_prefetch
         end
     end
 
-    assign fifo_wr_en = ddr_rd_valid;
-
     // -----------------------------------------------------------
     // Prefetch controller
     // -----------------------------------------------------------
-    // Tracks the next address to prefetch and issues DDR reads
-    // to keep the FIFO as full as possible
-
     logic [VECTOR_ADDR_W-1:0] prefetch_addr;
     logic [VECTOR_ADDR_W-1:0] target_addr;
     logic                      prefetch_active;
-    logic [7:0]               outstanding;  // In-flight DDR requests
+    logic [7:0]               outstanding;
+
+    // Gate FIFO writes: ignore DDR responses arriving after flush
+    logic flush_active;
+    always_ff @(posedge clk or negedge rst_n) begin
+        if (!rst_n)       flush_active <= 1'b0;
+        else if (flush)   flush_active <= 1'b1;
+        else if (!ddr_rd_valid && outstanding == 0) flush_active <= 1'b0;
+    end
+
+    assign fifo_wr_en = ddr_rd_valid && !flush_active;
 
     localparam PREFETCH_THRESHOLD = 8'd192;  // Start prefetch when level < this
     localparam MAX_OUTSTANDING    = 8'd32;   // Max in-flight requests

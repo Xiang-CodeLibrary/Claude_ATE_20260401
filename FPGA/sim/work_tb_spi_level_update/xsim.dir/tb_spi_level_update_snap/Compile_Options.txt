@@ -1,0 +1,1 @@
+-debug "typical" -top "tb_spi_level_update" -snapshot "tb_spi_level_update_snap" 

@@ -1,0 +1,1 @@
+-debug "typical" -top "tb_cal_controller" -snapshot "tb_cal_controller_snap" 

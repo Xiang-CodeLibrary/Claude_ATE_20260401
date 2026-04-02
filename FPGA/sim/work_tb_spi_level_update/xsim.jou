@@ -1,0 +1,25 @@
+#-----------------------------------------------------------
+# xsim v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Thu Apr  2 12:46:53 2026
+# Process ID         : 4836
+# Current directory  : D:/ATE_20260401/FPGA/sim/work_tb_spi_level_update
+# Command line       : xsim.exe -mode tcl -source {xsim.dir/tb_spi_level_update_snap/xsim_script.tcl}
+# Log file           : D:/ATE_20260401/FPGA/sim/work_tb_spi_level_update/xsim.log
+# Journal file       : D:/ATE_20260401/FPGA/sim/work_tb_spi_level_update\xsim.jou
+# Running On         : XIANG-OFFICE
+# Platform           : Windows Server 2016 or Windows 10
+# Operating System   : 26200
+# Processor Detail   : 13th Gen Intel(R) Core(TM) i7-13700K
+# CPU Frequency      : 3418 MHz
+# CPU Physical cores : 16
+# CPU Logical cores  : 24
+# Host memory        : 34084 MB
+# Swap memory        : 5368 MB
+# Total Virtual      : 39453 MB
+# Available Virtual  : 8648 MB
+#-----------------------------------------------------------
+source xsim.dir/tb_spi_level_update_snap/xsim_script.tcl
+run -all

@@ -98,6 +98,34 @@ run_tb "tb_source_capture" [list \
     "$sim_dir/tb_source_capture.sv" \
 ]
 
+## TB7: SPI Level Update
+run_tb "tb_spi_level_update" [list \
+    "$src_dir/top/ate_pkg.sv" \
+    "$src_dir/spi_master/spi_level_update.sv" \
+    "$sim_dir/tb_spi_level_update.sv" \
+]
+
+## TB8: Vector Prefetch
+run_tb "tb_vector_prefetch" [list \
+    "$src_dir/top/ate_pkg.sv" \
+    "$src_dir/pattern_engine/vector_prefetch.sv" \
+    "$sim_dir/tb_vector_prefetch.sv" \
+]
+
+## TB9: Trigger Interface
+run_tb "tb_trigger_intf" [list \
+    "$src_dir/top/ate_pkg.sv" \
+    "$src_dir/trigger/trigger_intf.sv" \
+    "$sim_dir/tb_trigger_intf.sv" \
+]
+
+## TB10: Calibration Controller
+run_tb "tb_cal_controller" [list \
+    "$src_dir/top/ate_pkg.sv" \
+    "$src_dir/calibration/cal_controller.sv" \
+    "$sim_dir/tb_cal_controller.sv" \
+]
+
 ## Summary
 puts ""
 puts "============================================================"
