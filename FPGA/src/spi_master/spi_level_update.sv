@@ -53,17 +53,15 @@ module spi_level_update
     // Pending update tracker
     // -----------------------------------------------------------
     logic [NUM_CHANNELS-1:0] pending;
+    logic [NUM_CHANNELS-1:0] clear_mask;
 
     always_ff @(posedge clk or negedge rst_n) begin
         if (!rst_n)
             pending <= '0;
         else begin
-            // Set pending on level change
             pending <= (pending | levels_updated) & ~clear_mask;
         end
     end
-
-    logic [NUM_CHANNELS-1:0] clear_mask;
 
     // -----------------------------------------------------------
     // State machine: scan channels, push registers
